@@ -211,6 +211,11 @@ body {
   text-shadow: 0 0 10px rgba(207, 255, 24, 0.2);
 }
 
+.faq-answer .faq-subtitle {
+  color: #ffffff;
+  text-shadow: none;
+}
+
 .faq-item.is-open .faq-answer p {
   padding: 0 16px 18px;
 }
@@ -225,7 +230,6 @@ body {
   background:
     linear-gradient(135deg, var(--lime) 0%, #d8ff20 66%, #aef016 100%);
   color: #08111b;
-  transform: skewX(-2deg);
   box-shadow: 0 0 26px rgba(207, 255, 24, 0.22);
 }
 
