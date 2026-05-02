@@ -290,7 +290,7 @@ body {
   }
 
   .faq-answer {
-    transition: max-height 90ms linear, opacity 60ms linear;
+    transition: none;
   }
 }
 
