@@ -1,0 +1,245 @@
+:root {
+  --bg: #050505;
+  --panel: #111111;
+  --panel-soft: #171717;
+  --text: #f3f3f3;
+  --muted: #a5a5a5;
+  --cyan: #10d8ff;
+  --cta: #29d6ff;
+  --lime: #d7ff00;
+  --border: #242424;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #000;
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+}
+
+.page-shell {
+  width: min(100%, 430px);
+  margin: 0 auto;
+  background:
+    linear-gradient(180deg, #000 0%, #031215 24%, #000 100%);
+  border-left: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.hero {
+  padding: 38px 22px 20px;
+  text-align: center;
+  border-top: 1px solid #d9d9d9;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.hero h1 span {
+  color: var(--lime);
+}
+
+.tagline {
+  margin: 10px 0 0;
+  color: var(--lime);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.price-badge {
+  width: fit-content;
+  margin: 14px auto 0;
+  padding: 9px 18px;
+  background: var(--lime);
+  color: #111;
+  font-weight: 800;
+  font-style: italic;
+  transform: skewX(-12deg);
+}
+
+.faq-section {
+  padding: 0 18px 26px;
+}
+
+.section-line {
+  height: 3px;
+  margin: 0 -18px 40px;
+  background: var(--lime);
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.heading-accent {
+  width: 7px;
+  height: 24px;
+  background: var(--lime);
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.faq-list {
+  display: grid;
+  gap: 14px;
+}
+
+.faq-item {
+  background: linear-gradient(180deg, rgba(23, 23, 23, 0.98), rgba(18, 18, 18, 0.98));
+  border: 1px solid #2c2c2c;
+  position: relative;
+  overflow: hidden;
+}
+
+.faq-item::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 16px;
+  height: 16px;
+  border-top: 3px solid var(--cyan);
+  border-left: 3px solid var(--cyan);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 18px 16px 14px;
+  border: 0;
+  background: transparent;
+  color: var(--cyan);
+  text-align: left;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms ease;
+}
+
+.faq-answer p {
+  overflow: hidden;
+  margin: 0;
+  padding: 0 16px 0;
+  color: #e2e2e2;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.faq-answer strong {
+  color: var(--lime);
+}
+
+.faq-item.is-open .faq-answer {
+  grid-template-rows: 1fr;
+}
+
+.faq-item.is-open .faq-answer p {
+  padding: 0 16px 18px;
+}
+
+.warning-box {
+  margin-top: 24px;
+  padding: 18px 16px;
+  background: var(--lime);
+  color: #101010;
+  transform: skewX(-2deg);
+}
+
+.warning-box h3 {
+  margin: 0 0 10px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.warning-box p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.cta-button {
+  display: block;
+  margin-top: 18px;
+  padding: 18px 16px;
+  background: #21c7ed;
+  color: #051014;
+  text-align: center;
+  text-decoration: none;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.footer {
+  padding: 18px 18px 20px;
+  text-align: center;
+  border-top: 1px solid #1a1a1a;
+}
+
+.footer p {
+  margin: 0 0 6px;
+  color: #777;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.footer small {
+  color: #4e4e4e;
+  font-size: 0.68rem;
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 28px 18px 16px;
+  }
+
+  .hero h1 {
+    font-size: 2.35rem;
+  }
+
+  .tagline {
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+  }
+
+  .price-badge {
+    margin-top: 12px;
+    padding: 8px 16px;
+  }
+
+  .footer {
+    padding: 16px 14px 18px;
+  }
+}
