@@ -181,7 +181,9 @@ body {
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 260ms ease;
+  opacity: 0;
+  transition: max-height 180ms ease-out, opacity 140ms ease-out;
+  will-change: max-height, opacity;
 }
 
 .faq-answer p {
@@ -201,6 +203,10 @@ body {
 
 .faq-item.is-open .faq-answer p {
   padding: 0 16px 18px;
+}
+
+.faq-item.is-open .faq-answer {
+  opacity: 1;
 }
 
 .warning-box {
@@ -282,6 +288,10 @@ body {
 
   .footer {
     padding: 16px 14px 18px;
+  }
+
+  .faq-answer {
+    transition: max-height 140ms ease-out, opacity 110ms ease-out;
   }
 }
 
