@@ -182,8 +182,7 @@ body {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 180ms ease-out, opacity 140ms ease-out;
-  will-change: max-height, opacity;
+  transition: max-height 120ms linear, opacity 80ms linear;
 }
 
 .faq-answer p {
@@ -291,7 +290,7 @@ body {
   }
 
   .faq-answer {
-    transition: max-height 140ms ease-out, opacity 110ms ease-out;
+    transition: max-height 90ms linear, opacity 60ms linear;
   }
 }
 
