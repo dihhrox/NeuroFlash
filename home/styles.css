@@ -97,27 +97,21 @@ body {
   padding-bottom: 24px;
 }
 
-.home-shell::before {
-  position: fixed;
-  inset: 1px;
-  background:
-    linear-gradient(rgba(4, 11, 18, 0.88), rgba(4, 11, 18, 0.92)),
-    url("./background-neuroflash.png") center top / cover no-repeat,
-    radial-gradient(circle at 50% 14%, rgba(201, 255, 24, 0.08), transparent 20%),
-    radial-gradient(circle at 80% 78%, rgba(37, 186, 255, 0.05), transparent 18%);
-}
-
-.home-shell::after {
-  position: fixed;
-  inset: 1px;
-}
-
 .home-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   padding: 18px 18px 14px;
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(90deg, var(--lime) 0%, var(--cta) 100%) 1;
+}
+
+.home-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .brand-mark {
@@ -236,6 +230,7 @@ body {
   background: transparent;
   border: 0;
   padding: 0;
+  --hero-banner-scale: 1;
 }
 
 .hero-placeholder-main img {
@@ -248,7 +243,7 @@ body {
   object-position: center center;
   display: block;
   filter: saturate(1.05) contrast(1.02);
-  transform: none;
+  transform: scale(var(--hero-banner-scale, 1));
 }
 
 .hero-fade-overlay {
@@ -304,6 +299,7 @@ body {
   align-items: center;
   border: 0;
   background: transparent;
+  --hero-card-scale: 2.50;
 }
 
 .hero-product-placeholder img {
@@ -313,7 +309,7 @@ body {
   max-width: none;
   max-height: none;
   object-fit: cover;
-  transform: scale(1.25);
+  transform: scale(var(--hero-card-scale, 1.25));
   display: block;
   margin: 0 auto;
   filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.35));
@@ -355,23 +351,24 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
-  object-position: center center;
+  object-position: var(--category-position, center center);
+  transform: scale(var(--category-scale, 1));
 }
 
 .category-image-mental {
-  transform: scale(1.08);
+  --category-scale: 1.08;
 }
 
 .category-image-focus {
-  transform: scale(1.08);
+  --category-scale: 1.08;
 }
 
 .category-image-pressure {
-  transform: scale(3.4);
+  --category-scale: 3.4;
 }
 
 .category-image-clarity {
-  transform: scale(4.4);
+  --category-scale: 4.4;
 }
 
 .mode-panel {
@@ -395,6 +392,7 @@ body {
   object-fit: cover;
   display: block;
   object-position: center center;
+  transform: scale(var(--mode-scale, 1));
 }
 
 .mode-copy {
@@ -416,27 +414,15 @@ body {
 }
 
 .mode-image-treino {
-  transform: scale(1.08);
+  --mode-scale: 1.08;
 }
 
 .mode-image-estudo {
-  transform: scale(1.08);
+  --mode-scale: 4.00;
 }
 
 .mode-image-game {
-  transform: scale(1.08);
-}
-
-.mode-image-treino {
-  transform: scale(1.00);
-}
-
-.mode-image-estudo {
-  transform: scale(4.01);
-}
-
-.mode-image-game {
-  transform: scale(1.10);
+  --mode-scale: 1.08;
 }
 
 .gallery-large {
@@ -447,8 +433,86 @@ body {
   min-height: 140px;
 }
 
+.gallery-large,
+.gallery-small {
+  overflow: hidden;
+  padding: 0;
+  background: transparent;
+  position: relative;
+  border: 0;
+}
+
+.gallery-large img,
+.gallery-small img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  object-position: center center;
+  transform: scale(var(--gallery-scale, 1));
+}
+
+.gallery-image-motocross {
+  --gallery-scale: 1;
+}
+
+.gallery-image-terno {
+  --gallery-scale: 3.6;
+}
+
+.gallery-image-ufc {
+  --gallery-scale: 3.6;
+}
+
 .gallery-wide {
   min-height: 180px;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  display: block;
+}
+
+.wide-message {
+  width: 100%;
+  min-height: 180px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  align-items: center;
+  padding: 34px 42px;
+  text-align: center;
+  border-left: 6px solid var(--lime);
+  border-right: 6px solid var(--cyan);
+  background:
+    linear-gradient(135deg, rgba(10, 18, 29, 0.62), rgba(5, 11, 18, 0.82));
+  box-sizing: border-box;
+}
+
+.wide-line {
+  margin: 0;
+  color: #ffffff;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.wide-line-1 {
+  max-width: 900px;
+}
+
+.wide-line-2 {
+  max-width: 760px;
+}
+
+.wide-line-3 {
+  max-width: 640px;
 }
 
 .eyebrow {
@@ -496,6 +560,15 @@ body {
   box-shadow:
     0 0 24px rgba(207, 255, 24, 0.3),
     inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.home-badge {
+  margin: 0;
+  padding: 8px 18px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.08rem;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .hero-copy {
@@ -741,40 +814,80 @@ body {
   .hero-banner {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
     min-height: 0;
-    padding: 0 18px 28px;
+    padding: 0 18px 24px;
     margin-bottom: 18px;
     overflow: visible;
   }
 
   .banner-copy {
+    order: 1;
     max-width: none;
     padding-top: 8px;
+    z-index: auto;
   }
 
   .banner-visual {
+    order: 2;
     position: relative;
     inset: auto;
     grid-template-columns: 1fr;
     pointer-events: auto;
   }
 
-  .hero-placeholder-main {
-    min-height: 220px;
-  }
-
   .hero-card {
-    padding: 14px 14px 10px;
+    order: 2;
   }
 
-  .hero-card h2 {
-    font-size: 1.45rem;
-    margin-bottom: 10px;
+  .hero-placeholder-main {
+    display: none;
   }
 
-  .hero-product-placeholder {
+  .gallery-large,
+  .gallery-small {
     min-height: 180px;
+  }
+
+  .category-image-mental {
+    --category-scale: 1.02;
+  }
+
+  .category-image-focus {
+    --category-scale: 1.00;
+    --category-position: center top;
+  }
+
+  .category-image-pressure {
+    --category-scale: 4.15;
+  }
+
+  .category-image-clarity {
+    --category-scale: 4.15;
+  }
+
+  .mode-image-treino {
+    --mode-scale: 1.02;
+  }
+
+  .mode-image-estudo {
+    --mode-scale: 4.02;
+  }
+
+  .mode-image-game {
+    --mode-scale: 1.02;
+  }
+
+  .gallery-image-motocross {
+    --gallery-scale: 1.02;
+  }
+
+  .gallery-image-terno {
+    --gallery-scale: 4.50;
+  }
+
+  .gallery-image-ufc {
+    --gallery-scale: 4.20;
   }
 
   .home-nav {
@@ -836,19 +949,6 @@ body {
       url("./background-neuroflash.png") center top / 100% auto no-repeat,
       radial-gradient(circle at 50% 14%, rgba(201, 255, 24, 0.08), transparent 20%),
       radial-gradient(circle at 80% 78%, rgba(37, 186, 255, 0.05), transparent 18%);
-  }
-
-  .home-shell::before {
-    inset: 1px;
-    background:
-      linear-gradient(rgba(4, 11, 18, 0.88), rgba(4, 11, 18, 0.92)),
-      url("./background-neuroflash.png") center top / cover no-repeat,
-      radial-gradient(circle at 50% 14%, rgba(201, 255, 24, 0.08), transparent 20%),
-      radial-gradient(circle at 80% 78%, rgba(37, 186, 255, 0.05), transparent 18%);
-  }
-
-  .home-shell::after {
-    inset: 1px;
   }
 
   .hero {
@@ -927,10 +1027,15 @@ body {
   }
 
   .gallery-grid {
-    grid-template-columns: 1.35fr 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-areas:
       "large smallA smallB"
       "wide wide wide";
+  }
+
+  .gallery-large,
+  .gallery-small {
+    min-height: 300px;
   }
 
   .gallery-large {
