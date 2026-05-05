@@ -738,6 +738,45 @@ body {
 }
 
 @media (max-width: 768px) {
+  .hero-banner {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-height: 0;
+    padding: 0 18px 28px;
+    margin-bottom: 18px;
+    overflow: visible;
+  }
+
+  .banner-copy {
+    max-width: none;
+    padding-top: 8px;
+  }
+
+  .banner-visual {
+    position: relative;
+    inset: auto;
+    grid-template-columns: 1fr;
+    pointer-events: auto;
+  }
+
+  .hero-placeholder-main {
+    min-height: 220px;
+  }
+
+  .hero-card {
+    padding: 14px 14px 10px;
+  }
+
+  .hero-card h2 {
+    font-size: 1.45rem;
+    margin-bottom: 10px;
+  }
+
+  .hero-product-placeholder {
+    min-height: 180px;
+  }
+
   .home-nav {
     flex-direction: column;
     align-items: flex-start;
