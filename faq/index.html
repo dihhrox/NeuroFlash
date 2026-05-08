@@ -7,26 +7,31 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="page-shell">
-    <section class="hero">
-      <a class="top-link" href="../home/index.html">VOLTAR PARA HOME</a>
-      <h1>NEURO<span>FLASH</span></h1>
-      <p class="tagline">FOCUS &#8226; ENERGY &#8226; MENTAL CLARITY</p>
-      <div class="price-badge">HARDCORE MODE</div>
-    </section>
-
+    <header class="home-nav">
+      <div class="home-nav-inner">
+        <div class="home-brand">
+          <a class="brand-mark" href="../home/index.html">NEURO<span>FLASH</span></a>
+          <div class="price-badge home-badge">HARDCORE MODE</div>
+        </div>
+        <nav class="home-menu">
+          <a href="../home/index.html">HOME</a>
+          <a class="is-active" href="./index.html" aria-current="page">FAQ</a>
+        </nav>
+      </div>
+    </header>
     <section class="faq-section">
-      <div class="section-line"></div>
       <div class="section-heading">
         <span class="heading-accent"></span>
         <h2>PROTOCOLOS DE USO</h2>
       </div>
 
       <div class="faq-list">
-        <article class="faq-item">
+        <article class="faq-item surface-panel">
           <button class="faq-question" type="button" aria-expanded="false">
             <span>O QUE &Eacute; A TECNOLOGIA NEUROFLASH?</span>
           </button>
@@ -46,7 +51,7 @@
           </div>
         </article>
 
-        <article class="faq-item">
+        <article class="faq-item surface-panel">
           <button class="faq-question" type="button" aria-expanded="false">
             <span>COMO DETONAR COM A DOSE &Uacute;NICA?</span>
           </button>
@@ -58,7 +63,7 @@
           </div>
         </article>
 
-        <article class="faq-item">
+        <article class="faq-item surface-panel">
           <button class="faq-question" type="button" aria-expanded="false">
             <span>POSSO MISTURAR COM OUTRAS BEBIDAS?</span>
           </button>
@@ -78,7 +83,7 @@
           </div>
         </article>
 
-        <article class="faq-item">
+        <article class="faq-item surface-panel">
           <button class="faq-question" type="button" aria-expanded="false">
             <span>ISSO &Eacute; PRA TODO MUNDO?</span>
           </button>
@@ -104,7 +109,7 @@
           </div>
         </article>
 
-        <article class="faq-item">
+        <article class="faq-item surface-panel">
           <button class="faq-question" type="button" aria-expanded="false">
             <span>O QUE TEM DENTRO DA DOSE?</span>
           </button>

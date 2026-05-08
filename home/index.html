@@ -7,21 +7,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="page-shell home-shell">
     <header class="home-nav">
-      <div class="home-brand">
-        <a class="brand-mark" href="./">NEURO<span>FLASH</span></a>
-        <div class="price-badge home-badge">HARDCORE MODE</div>
+      <div class="home-nav-inner">
+        <div class="home-brand">
+          <a class="brand-mark" href="./index.html">NEURO<span>FLASH</span></a>
+          <div class="price-badge home-badge">HARDCORE MODE</div>
+        </div>
+        <nav class="home-menu">
+          <a class="is-active" href="./index.html" aria-current="page">HOME</a>
+          <a href="../faq/index.html">FAQ</a>
+        </nav>
       </div>
-      <nav class="home-menu">
-        <a href="#destaques">DESTAQUES</a>
-        <a href="#modos">MODOS</a>
-        <a href="#galeria">GALERIA</a>
-        <a href="../faq/index.html">FAQ</a>
-      </nav>
     </header>
 
     <section class="hero-banner">
@@ -52,32 +53,31 @@
     </section>
 
     <section class="home-section" id="destaques">
-      <div class="section-line"></div>
       <div class="section-heading">
         <span class="heading-accent"></span>
         <h2>NEUROFLASH ENERGY DRIVERS</h2>
       </div>
 
       <div class="category-strip">
-        <div class="category-card faq-item">
+        <div class="category-card surface-panel">
           <div class="category-image">
             <img class="category-image-mental" src="./mental-ignition.jpg" alt="Mental Ignition">
           </div>
           <h3>MENTAL IGNITION</h3>
         </div>
-        <div class="category-card faq-item">
+        <div class="category-card surface-panel">
           <div class="category-image">
             <img class="category-image-focus" src="./focus-lock.jpg" alt="Focus Lock">
           </div>
           <h3>FOCUS LOCK</h3>
         </div>
-        <div class="category-card faq-item">
+        <div class="category-card surface-panel">
           <div class="category-image">
             <img class="category-image-pressure" src="./pressure-mode.jpg" alt="Pressure Mode">
           </div>
           <h3>PRESSURE MODE</h3>
         </div>
-        <div class="category-card faq-item">
+        <div class="category-card surface-panel">
           <div class="category-image">
             <img class="category-image-clarity" src="./clarity-rush.jpg" alt="Clarity Rush">
           </div>
@@ -93,7 +93,7 @@
       </div>
 
       <div class="mode-grid">
-        <article class="mode-panel faq-item">
+        <article class="mode-panel surface-panel">
           <div class="mode-media">
             <img class="mode-image-treino" src="./treino.jpg" alt="Treino">
           </div>
@@ -103,7 +103,7 @@
           </div>
         </article>
 
-        <article class="mode-panel faq-item">
+        <article class="mode-panel surface-panel">
           <div class="mode-media">
             <img class="mode-image-estudo" src="./estudo.jpg" alt="Estudo">
           </div>
@@ -113,7 +113,7 @@
           </div>
         </article>
 
-        <article class="mode-panel faq-item">
+        <article class="mode-panel surface-panel">
           <div class="mode-media">
             <img class="mode-image-game" src="./game-competição.jpg" alt="Game / Competição">
           </div>
@@ -132,16 +132,16 @@
       </div>
 
       <div class="gallery-grid">
-        <div class="gallery-small-a faq-item">
+        <div class="gallery-small-a surface-panel">
           <img class="gallery-image-a" src="./motocross.jpg" alt="Motocross">
         </div>
-        <div class="gallery-small-b faq-item">
+        <div class="gallery-small-b surface-panel">
           <img class="gallery-image-b" src="./homem-terno.jpg" alt="Homem de terno">
         </div>
-        <div class="gallery-small-c faq-item">
+        <div class="gallery-small-c surface-panel">
           <img class="gallery-image-c" src="./mulher-ufc.jpg" alt="Mulher UFC">
         </div>
-        <div class="gallery-wide faq-item">
+        <div class="gallery-wide surface-panel">
           <div class="wide-message">
             <p class="wide-line wide-line-1">Alta performance não é um capricho, é responsabilidade, foco e disciplina</p>
             <p class="wide-line wide-line-2">Não é para qualquer paladar, é para mentes que recusam o comum</p>
