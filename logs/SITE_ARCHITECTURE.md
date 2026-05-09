@@ -7,7 +7,9 @@ Este documento consolida a arquitetura operacional do projeto Neuroflash no esta
 Pontos centrais:
 
 - `index.html` e o ponto de entrada publico e redireciona para `./home/`
+- hospedagem oficial prevista em GitHub Pages
 - `shared.css` concentra a base visual compartilhada entre as paginas oficiais
+- `shared/` concentra fragmentos HTML e scripts leves de inclusao compartilhada
 - `home/` contem a landing principal e seus assets visuais
 - `faq/` contem a pagina secundaria, seu estilo proprio e o unico JavaScript ativo
 - `logs/` concentra a documentacao permanente do projeto
@@ -34,6 +36,8 @@ O projeto apresenta o produto Neuroflash em uma experiencia editorial de alta co
 
 - `index.html` faz apenas o roteamento de entrada
 - `shared.css` centraliza tokens e componentes visuais reutilizados
+- `shared/legal-warning.html` centraliza o aviso legal compartilhado entre home e FAQ
+- `shared/includes.js` injeta fragmentos HTML em runtime
 - `home/` contem a interface principal e quase todo o conteudo visual
 - `faq/` contem a interface secundaria e o comportamento interativo do acordeao
 - `logs/CHANGELOG.md` registra alteracoes tecnicas relevantes
@@ -47,6 +51,7 @@ Dependencias identificadas no codigo atual:
 - Google Fonts
 - fontes `Barlow Condensed`
 - fonte `Inter`
+- `fetch` nativo do navegador para inclusao client-side de fragmentos HTML compartilhados
 
 Nao ha dependencia observada de:
 
@@ -59,6 +64,12 @@ Nao ha dependencia observada de:
 - servico de autenticacao
 - integracao de analytics documentada em codigo
 
+### Restricoes de hospedagem
+
+- o projeto deve permanecer compativel com GitHub Pages
+- nao ha suporte a SSI, includes de servidor, template engine server-side ou backend
+- componentes HTML compartilhados devem usar inclusao client-side simples, com paths relativos e assets estaticos
+
 ## Stack Tecnologico Completo
 
 ### Estado atual
@@ -66,6 +77,7 @@ Nao ha dependencia observada de:
 - HTML5 para estrutura de paginas
 - CSS3 para layout, responsividade, identidade visual e enquadramento de assets
 - `shared.css` como camada base compartilhada
+- JavaScript compartilhado em `shared/includes.js` para inclusao client-side
 - JavaScript vanilla em `faq/script.js` para o comportamento do acordeao
 - assets locais `.jpg` para fundos e imagens editoriais
 - o packshot ativo observado no HTML atual e `product-packshot2.jpg`
@@ -113,6 +125,7 @@ Toda a configuracao atual e embutida diretamente nos arquivos HTML, CSS, JS e pa
 
 - `index.html`
 - `shared.css`
+- `shared/`
 - `home/`
 - `faq/`
 - `logs/`
@@ -149,6 +162,8 @@ Toda a configuracao atual e embutida diretamente nos arquivos HTML, CSS, JS e pa
 Arquivos principais:
 
 - `shared.css`
+- `shared/legal-warning.html`
+- `shared/includes.js`
 - `home/index.html`
 - `home/styles.css`
 
@@ -158,6 +173,7 @@ Responsabilidades:
 - exibir hero, destaques, modos de uso, galeria e CTA final
 - direcionar o usuario para a FAQ
 - concentrar a maior parte do sistema visual do projeto
+- montar o aviso legal por include compartilhado
 
 Estrutura semantica observada:
 
@@ -172,8 +188,8 @@ Estrutura semantica observada:
 
 Interatividade:
 
-- nao ha JavaScript dedicado na home atual
-- a experiencia da home e conduzida por HTML e CSS
+- nao ha JavaScript dedicado de pagina na home atual
+- a experiencia da home e conduzida por HTML, CSS e um include client-side compartilhado
 - cards visuais reutilizam a classe compartilhada `surface-panel` em vez de reaproveitar classes da FAQ
 - o primeiro bloco visivel nao usa mais `section-line` abaixo do header
 
@@ -182,6 +198,8 @@ Interatividade:
 Arquivos principais:
 
 - `shared.css`
+- `shared/legal-warning.html`
+- `shared/includes.js`
 - `faq/index.html`
 - `faq/styles.css`
 - `faq/script.js`
@@ -206,11 +224,32 @@ Estrutura semantica observada:
 Interatividade:
 
 - acordeao controlado por `faq/script.js`
+- aviso legal compartilhado injetado por `shared/includes.js`
 - apenas um item pode ficar aberto por vez
 - atualizacao de `aria-expanded`
 - recalculo de `max-height` no `load` e no `resize`
 - protecao contra itens sem `.faq-question` ou `.faq-answer`
 - o topo permanece visivel durante a rolagem por meio do header sticky compartilhado
+
+### App `shared`
+
+Arquivos principais:
+
+- `shared/legal-warning.html`
+- `shared/includes.js`
+
+Responsabilidades:
+
+- concentrar markup compartilhado entre paginas estaticas
+- injetar fragmentos HTML em runtime via `fetch`
+- reduzir duplicacao estrutural sem depender de backend ou build
+
+Interatividade:
+
+- leitura de `data-include-src`
+- `fetch` do fragmento correspondente
+- injecao do HTML no container alvo
+- falha silenciosa com `console.error` quando o include nao puder ser carregado
 
 ### App `logs`
 
@@ -340,11 +379,12 @@ Arquivos oficiais:
 
 - `index.html`
 - `shared.css`
+- `shared/`
 
 Observacao:
 
 - a raiz nao concentra mais os arquivos permanentes de documentacao; eles ficam em `logs/`
-- a raiz tambem hospeda a folha compartilhada carregada por `home/` e `faq/`
+- a raiz tambem hospeda a folha compartilhada carregada por `home/` e `faq/`, alem da pasta `shared/` com includes reutilizaveis
 
 ### `home/`
 
@@ -395,25 +435,27 @@ Arquivos documentais:
    Solucao: validar sempre os paths relativos `../faq/index.html` e `../home/index.html` apos qualquer reorganizacao de pasta.
 2. Divergencia entre documentacao e estrutura real
    Solucao: atualizar `logs/SITE_ARCHITECTURE.md` sempre que mudar ownership de arquivo, local de documentacao ou estrutura principal.
-3. Imagens com enquadramento inconsistente
+3. Includes compartilhados quebrados no GitHub Pages
+   Solucao: validar sempre os paths relativos de `data-include-src` e manter o carregamento baseado em `fetch` de arquivos estaticos.
+4. Imagens com enquadramento inconsistente
    Solucao: revisar `home/styles.css` junto com `home/HOME_IMAGE_GUIDE.txt` antes de trocar assets ou alterar proporcoes.
-4. Regressao entre mobile e desktop
+5. Regressao entre mobile e desktop
    Solucao: conferir manualmente os breakpoints principais apos mudancas em hero, header, galeria e FAQ.
-5. Cards da galeria fora de proporcao
+6. Cards da galeria fora de proporcao
    Solucao: preservar a nomenclatura dos cards A/B/C e revisar as regras de proporcao horizontal no CSS antes de editar alturas.
-6. Inconsistencia de header entre paginas
+7. Inconsistencia de header entre paginas
    Solucao: tratar `header.home-nav` como padrao compartilhado e validar home e FAQ em conjunto.
-7. Assets orfaos ou duplicados
+8. Assets orfaos ou duplicados
    Solucao: remover arquivos que nao estejam ligados as paginas oficiais e registrar a limpeza no changelog.
-8. FAQ com abertura inesperada
+9. FAQ com abertura inesperada
    Solucao: revisar `faq/script.js`, especialmente `is-open`, `aria-expanded` e o recalculo de `max-height`.
-9. Alteracoes sem registro no changelog
+10. Alteracoes sem registro no changelog
    Solucao: adicionar uma entrada em `logs/CHANGELOG.md` para cada mudanca estrutural, visual ou comportamental relevante.
-10. Mudanca de nomenclatura CSS sem atualizar seletores
+11. Mudanca de nomenclatura CSS sem atualizar seletores
    Solucao: ao renomear classes, buscar referencias em HTML, CSS e documentacao tecnica no mesmo ciclo de mudanca.
-11. Dependencia implicita de fontes externas
+12. Dependencia implicita de fontes externas
    Solucao: lembrar que a tipografia depende de Google Fonts e validar fallback visual se houver falha de carregamento.
-12. Edicao visual sem validacao cruzada em home e FAQ
+13. Edicao visual sem validacao cruzada em home e FAQ
    Solucao: sempre revisar consistencia de branding, espacamento e navegacao nas duas paginas antes de concluir a entrega.
 
 ## Design Patterns Do Projeto
@@ -428,15 +470,16 @@ Arquivos documentais:
 6. Mobile-first responsive styling
 7. Progressive enhancement minimo
 8. Single-responsibility JavaScript for FAQ behavior
+9. Shared HTML fragments injected client-side for static hosting
 
 ### Recomendados para evolucao do projeto
 
-9. Documentation-first structural changes
-10. Change logging as operational policy
-11. Canonical file ownership by app folder
-12. Content grouping by concern
-13. Naming consistency for CSS and assets
-14. Cross-page UI parity validation
+10. Documentation-first structural changes
+11. Change logging as operational policy
+12. Canonical file ownership by app folder
+13. Content grouping by concern
+14. Naming consistency for CSS and assets
+15. Cross-page UI parity validation
 
 ## Operacao E Manutencao
 

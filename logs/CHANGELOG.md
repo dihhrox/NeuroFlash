@@ -131,3 +131,9 @@ Cada nova entrada deve incluir:
 - Arquivos alterados: `shared.css`, `logs/CHANGELOG.md`
 - Descricao: removido por completo o overflow do `page-shell` e deslocada a contencao horizontal para o `body`, evitando que o shell continue sendo interpretado como contêiner de rolagem e atrapalhe o `position: sticky` do header compartilhado.
 - Impacto/Contexto: elimina a ultima configuracao de overflow com potencial de sabotar o topo fixo e mantem o bloqueio de vazamento lateral sem prender a navegacao superior ao shell.
+
+## 2026-05-08 - Aviso legal compartilhado entre Home e FAQ via include client-side
+
+- Arquivos alterados: `shared/legal-warning.html`, `shared/includes.js`, `home/index.html`, `faq/index.html`, `logs/CHANGELOG.md`, `logs/SITE_ARCHITECTURE.md`
+- Descricao: extraido o bloco de aviso legal do final da home e da FAQ para um fragmento HTML compartilhado, com inclusao client-side via `fetch` em um loader compartilhado compativel com GitHub Pages.
+- Impacto/Contexto: elimina duplicacao de markup entre as duas paginas oficiais, preserva o mesmo visual atual do aviso e formaliza a estrategia de componentes HTML compartilhados sem backend, sem build e sem includes de servidor.
