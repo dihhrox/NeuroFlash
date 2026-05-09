@@ -1,25 +1,20 @@
-const includeTargets = document.querySelectorAll("[data-include-src]");
+const sharedIncludes = {
+  legalWarning: `
+    <aside class="warning-box">
+      <h3>&#9888; HARDCORE MODE ONLY</h3>
+      <p>
+        Uso restrito a maiores de 18 anos. Se voc&ecirc; tem sensibilidade &agrave; cafe&iacute;na ou hist&oacute;rico card&iacute;aco,
+        este produto <strong>N&Atilde;O</strong> &eacute; para voc&ecirc;. Performance exige responsabilidade.
+      </p>
+    </aside>
+  `.trim(),
+};
 
-async function injectSharedInclude(target) {
-  const src = target.getAttribute("data-include-src");
-
-  if (!src) {
+document.querySelectorAll("[data-shared-legal-warning]").forEach((target) => {
+  if (!sharedIncludes.legalWarning) {
+    console.error("Shared include failed: legalWarning component is not registered.");
     return;
   }
 
-  try {
-    const response = await fetch(src);
-
-    if (!response.ok) {
-      throw new Error(`Failed to load include: ${src} (${response.status})`);
-    }
-
-    target.innerHTML = await response.text();
-  } catch (error) {
-    console.error("Shared include failed:", error);
-  }
-}
-
-includeTargets.forEach((target) => {
-  void injectSharedInclude(target);
+  target.innerHTML = sharedIncludes.legalWarning;
 });

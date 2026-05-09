@@ -1,402 +1,70 @@
 # Arquitetura do Site Neuroflash
 
-## Resumo
+## Visão geral
 
-Este documento consolida a arquitetura operacional do projeto Neuroflash no estado atual e registra um modelo-alvo leve para futura evolucao. O projeto continua sendo uma landing estatica multi-page, sem backend, sem pipeline automatizado e sem camada de build.
+O projeto Neuroflash é uma landing page estática multi-page, sem backend, sem build e sem pipeline automatizado. O fluxo público é simples:
 
-Pontos centrais:
+1. `index.html` redireciona para `./home/`
+2. `home/index.html` funciona como página principal
+3. `faq/index.html` cobre dúvidas, protocolos e alertas complementares
 
-- `index.html` e o ponto de entrada publico e redireciona para `./home/`
-- hospedagem oficial prevista em GitHub Pages
-- `shared.css` concentra a base visual compartilhada entre as paginas oficiais
-- `shared/` concentra fragmentos HTML e scripts leves de inclusao compartilhada
-- `home/` contem a landing principal e seus assets visuais
-- `faq/` contem a pagina secundaria, seu estilo proprio e o unico JavaScript ativo
-- `logs/` concentra a documentacao permanente do projeto
-- nao foram encontrados `package.json`, `.env`, workflows de CI/CD, Docker, banco de dados ou servicos de aplicacao
+Regras centrais do estado atual:
 
-## Visao Geral Da Arquitetura
+- hospedagem-alvo: GitHub Pages
+- compatibilidade local: as páginas também devem funcionar em `file:///`
+- base visual compartilhada: `shared.css`
+- componente compartilhado atual: `shared/includes.js`
+- única lógica interativa de página: `faq/script.js`
+- fundo canônico compartilhado: `background-neuroflash.jpg` na raiz
+- trilha oficial de mudanças: `logs/CHANGELOG.md`
 
-### Objetivo do projeto
+Stack real do projeto:
 
-O projeto apresenta o produto Neuroflash em uma experiencia editorial de alta conversao, com duas superficies principais:
+- HTML5
+- CSS3
+- JavaScript vanilla
+- Google Fonts (`Barlow Condensed` e `Inter`)
 
-- `home/index.html` para branding, destaques visuais, modos de uso e CTA principal
-- `faq/index.html` para protocolos, duvidas frequentes, avisos e orientacao complementar
+O projeto não usa hoje:
 
-### Fluxo de entrada e navegacao
-
-1. O acesso inicial ocorre por `index.html`
-2. A raiz usa `meta refresh` para redirecionar o usuario para `home/`
-3. `home/index.html` funciona como pagina principal
-4. A home aponta para ancoras internas e para `../faq/index.html`
-5. `faq/index.html` retorna para `../home/index.html` pelo header
-
-### Relacao entre os blocos do projeto
-
-- `index.html` faz apenas o roteamento de entrada
-- `shared.css` centraliza tokens e componentes visuais reutilizados
-- `shared/legal-warning.html` centraliza o aviso legal compartilhado entre home e FAQ
-- `shared/includes.js` injeta fragmentos HTML em runtime
-- `home/` contem a interface principal e quase todo o conteudo visual
-- `faq/` contem a interface secundaria e o comportamento interativo do acordeao
-- `logs/CHANGELOG.md` registra alteracoes tecnicas relevantes
-- `logs/SITE_ARCHITECTURE.md` funciona como referencia arquitetural oficial
-- `home/HOME_IMAGE_GUIDE.txt` funciona como anexo operacional para manutencao visual da home
-
-### Dependencias externas reais
-
-Dependencias identificadas no codigo atual:
-
-- Google Fonts
-- fontes `Barlow Condensed`
-- fonte `Inter`
-- `fetch` nativo do navegador para inclusao client-side de fragmentos HTML compartilhados
-
-Nao ha dependencia observada de:
-
+- backend
 - framework frontend
-- runtime Node.js
-- bundler
-- API externa
-- backend
-- banco de dados
-- servico de autenticacao
-- integracao de analytics documentada em codigo
-
-### Restricoes de hospedagem
-
-- o projeto deve permanecer compativel com GitHub Pages
-- nao ha suporte a SSI, includes de servidor, template engine server-side ou backend
-- componentes HTML compartilhados devem usar inclusao client-side simples, com paths relativos e assets estaticos
-
-## Stack Tecnologico Completo
-
-### Estado atual
-
-- HTML5 para estrutura de paginas
-- CSS3 para layout, responsividade, identidade visual e enquadramento de assets
-- `shared.css` como camada base compartilhada
-- JavaScript compartilhado em `shared/includes.js` para inclusao client-side
-- JavaScript vanilla em `faq/script.js` para o comportamento do acordeao
-- assets locais `.jpg` para fundos e imagens editoriais
-- o packshot ativo observado no HTML atual e `product-packshot2.jpg`
-- Google Fonts para tipografia remota
-
-### Ausencias explicitas
-
-Nao foram encontrados no projeto atual:
-
-- Node.js como dependencia declarada
-- React, Vue, Angular ou outro framework
+- Node.js
 - build step
-- bundler
-- package manager do projeto
 - CI/CD
-- pipeline de deploy
-- backend
 - banco de dados
-- cache server
-- containerizacao
+- variáveis de ambiente
 
-## Variaveis De Ambiente
+## Estrutura atual
 
-### Estado atual
+### Entrada pública
 
-Nenhuma variavel de ambiente foi encontrada no projeto inspecionado.
+- `index.html`: redireciona para `home/`
 
-Nao foram encontrados:
+### Pastas principais
 
-- arquivos `.env`
-- leitura de `process.env`
-- leitura de `import.meta.env`
-- configuracao por ambiente
-- segredo local
-- chave de API documentada
-- automacao de deploy dependente de variaveis
+- `home/`: landing principal, conteúdo editorial e assets visuais da home
+- `faq/`: página de FAQ e seu comportamento interativo
+- `shared/`: scripts leves compartilhados entre páginas
+- `logs/`: documentação permanente do projeto
 
-### Implicacao operacional
+### Ownership por área
 
-Toda a configuracao atual e embutida diretamente nos arquivos HTML, CSS, JS e paths relativos de assets.
+- `shared.css`: tokens, shell, header, superfícies, CTA base, warning box, footer e fundo compartilhado
+- `shared/includes.js`: injeta componentes HTML compartilhados diretamente no DOM
+- `home/index.html` + `home/styles.css`: hero, destaques, modos, galeria e CTA principal
+- `faq/index.html` + `faq/styles.css` + `faq/script.js`: acordeão, protocolos e suporte complementar
+- `logs/CHANGELOG.md`: histórico técnico
+- `logs/SITE_ARCHITECTURE.md`: fotografia arquitetural atual e guia de manutenção
 
-## Estrutura Do Diretorio De Conteudo
+### Assets
 
-### Estrutura atual
+Compartilhados:
 
-- `index.html`
-- `shared.css`
-- `shared/`
-- `home/`
-- `faq/`
-- `logs/`
+- `background-neuroflash.jpg` na raiz
 
-### Conteudo navegavel
+Específicos da home:
 
-- `index.html`: entrada publica com redirecionamento para `home/`
-- `home/index.html`: landing principal
-- `faq/index.html`: pagina secundaria de suporte e educacao
-
-### Conteudo editorial e textual
-
-- FAQ textual embutida em `faq/index.html`
-- mensagens editoriais, headings e CTAs embutidos em `home/index.html`
-
-### Conteudo visual
-
-- assets da home agrupados em `home/`
-- asset visual da FAQ agrupado em `faq/background-neuroflash.jpg`
-
-### Conteudo documental
-
-- `logs/CHANGELOG.md`
-- `logs/SITE_ARCHITECTURE.md`
-
-### Guia tecnico complementar
-
-- `home/HOME_IMAGE_GUIDE.txt`
-
-## Apps E Responsabilidades
-
-### App `home`
-
-Arquivos principais:
-
-- `shared.css`
-- `shared/legal-warning.html`
-- `shared/includes.js`
-- `home/index.html`
-- `home/styles.css`
-
-Responsabilidades:
-
-- apresentar a marca
-- exibir hero, destaques, modos de uso, galeria e CTA final
-- direcionar o usuario para a FAQ
-- concentrar a maior parte do sistema visual do projeto
-- montar o aviso legal por include compartilhado
-
-Estrutura semantica observada:
-
-- `main.page-shell.home-shell`
-- `header.home-nav`
-- `section.hero-banner`
-- `section.home-section#destaques`
-- `section.home-section#modos`
-- `section.home-section#galeria`
-- `section.home-section` final com aviso e CTA
-- `footer.footer`
-
-Interatividade:
-
-- nao ha JavaScript dedicado de pagina na home atual
-- a experiencia da home e conduzida por HTML, CSS e um include client-side compartilhado
-- cards visuais reutilizam a classe compartilhada `surface-panel` em vez de reaproveitar classes da FAQ
-- o primeiro bloco visivel nao usa mais `section-line` abaixo do header
-
-### App `faq`
-
-Arquivos principais:
-
-- `shared.css`
-- `shared/legal-warning.html`
-- `shared/includes.js`
-- `faq/index.html`
-- `faq/styles.css`
-- `faq/script.js`
-
-Responsabilidades:
-
-- responder duvidas comuns
-- detalhar protocolos de uso
-- reforcar alertas e limites de consumo
-- manter comportamento de acordeao com foco em leitura sequencial
-
-Estrutura semantica observada:
-
-- `main.page-shell`
-- `header.home-nav`
-- `section.faq-section`
-- `div.faq-list`
-- `article.faq-item`
-- `aside.warning-box`
-- `footer.footer`
-
-Interatividade:
-
-- acordeao controlado por `faq/script.js`
-- aviso legal compartilhado injetado por `shared/includes.js`
-- apenas um item pode ficar aberto por vez
-- atualizacao de `aria-expanded`
-- recalculo de `max-height` no `load` e no `resize`
-- protecao contra itens sem `.faq-question` ou `.faq-answer`
-- o topo permanece visivel durante a rolagem por meio do header sticky compartilhado
-
-### App `shared`
-
-Arquivos principais:
-
-- `shared/legal-warning.html`
-- `shared/includes.js`
-
-Responsabilidades:
-
-- concentrar markup compartilhado entre paginas estaticas
-- injetar fragmentos HTML em runtime via `fetch`
-- reduzir duplicacao estrutural sem depender de backend ou build
-
-Interatividade:
-
-- leitura de `data-include-src`
-- `fetch` do fragmento correspondente
-- injecao do HTML no container alvo
-- falha silenciosa com `console.error` quando o include nao puder ser carregado
-
-### App `logs`
-
-Arquivos principais:
-
-- `logs/CHANGELOG.md`
-- `logs/SITE_ARCHITECTURE.md`
-
-Responsabilidades:
-
-- preservar historico tecnico
-- registrar impacto de mudancas
-- servir como base de contexto para manutencao futura
-
-## Servicos, Jobs E Models Por App
-
-### Estado atual
-
-#### `home`
-
-- services: nenhum
-- jobs: nenhum
-- models: nenhum
-
-#### `faq`
-
-- services: nenhum
-- jobs: nenhum
-- models: nenhum
-
-#### `logs`
-
-- services: nenhum
-- jobs: nenhum
-- models: nenhum
-
-### Modelo-alvo para futura evolucao
-
-Este projeto nao precisa dessas camadas hoje, mas pode adotar um modelo documental simples caso cresca.
-
-#### Models sugeridos
-
-- `navigation model`: define rotas, labels de menu e pagina ativa
-- `faq item model`: define pergunta, resposta, ordem e estado esperado de renderizacao
-- `content section model`: define blocos da home, heading, copy, CTA e dependencias de imagem
-- `asset model`: define nome canonico, localizacao, proporcao e uso de cada imagem
-
-#### Services sugeridos
-
-- `content service`: centraliza leitura ou organizacao futura de textos e secoes
-- `navigation service`: valida links internos e consistencia de menu
-- `asset validation service`: verifica existencia e naming de imagens usadas pela home e FAQ
-- `documentation service`: garante sincronismo minimo entre mudanca estrutural e documentacao
-
-#### Jobs sugeridos
-
-- `asset review job`: revisao manual periodica de enquadramento e proporcao de imagens
-- `release checklist job`: execucao de checklist antes de publicar alteracoes
-- `documentation sync job`: revisao de `CHANGELOG.md` e `SITE_ARCHITECTURE.md` apos mudancas estruturais
-- `cross-page validation job`: validacao de header, links e consistencia visual entre home e FAQ
-
-## Estrutura Tecnica Por Area
-
-### `home/styles.css`
-
-Responsavel por:
-
-- layout especifico da home
-- hero visual com imagens
-- grids de destaques, modos e galeria
-- responsividade mobile e desktop
-
-Observacoes relevantes:
-
-- contem regras especificas de enquadramento e posicionamento de imagem
-- usa assets locais por path relativo
-- a galeria superior usa `gallery-small-a`, `gallery-small-b` e `gallery-small-c`
-- o packshot atual usa enquadramento fixo por CSS
-
-### `shared.css`
-
-Responsavel por:
-
-- tokens visuais compartilhados
-- `page-shell`
-- header compartilhado sticky
-- menu e branding
-- `surface-panel`
-- `warning-box`
-- CTA base
-- footer
-- heading de secao e linha estrutural
-
-Observacoes relevantes:
-
-- o topo compartilhado usa `position: sticky` com fundo reforcado para permanecer legivel sobre o conteudo
-- a linha inferior do header e a primeira linha estrutural abaixo do topo foram removidas em home e FAQ
-
-### `faq/styles.css`
-
-Responsavel por:
-
-- camada especifica da FAQ
-- cards do acordeao
-- estados visuais de abertura e fechamento
-- responsividade da pagina
-
-Observacoes relevantes:
-
-- seletores legados de hero, galeria e grids antigos foram removidos na refatoracao conservadora
-
-### `faq/script.js`
-
-Responsavel por:
-
-- localizar `.faq-item`
-- abrir e fechar respostas
-- garantir fechamento dos demais itens
-- sincronizar `max-height`
-- atualizar `aria-expanded`
-
-## Assets E Conteudo Por Pasta
-
-### Raiz
-
-Arquivos oficiais:
-
-- `index.html`
-- `shared.css`
-- `shared/`
-
-Observacao:
-
-- a raiz nao concentra mais os arquivos permanentes de documentacao; eles ficam em `logs/`
-- a raiz tambem hospeda a folha compartilhada carregada por `home/` e `faq/`, alem da pasta `shared/` com includes reutilizaveis
-
-### `home/`
-
-Arquivos tecnicos:
-
-- `home/index.html`
-- `home/styles.css`
-- `home/HOME_IMAGE_GUIDE.txt`
-
-Assets visuais encontrados:
-
-- `background-neuroflash.jpg`
 - `clarity-rush.jpg`
 - `estudo.jpg`
 - `focus-lock.jpg`
@@ -410,104 +78,122 @@ Assets visuais encontrados:
 - `product-packshot2.jpg`
 - `treino.jpg`
 
-### `faq/`
+Complemento técnico:
 
-Arquivos tecnicos:
+- `home/HOME_IMAGE_GUIDE.txt`: referência operacional para enquadramento e troca de imagens da home
+
+## Componentes e comportamento
+
+### shared.css
+
+Responsável por:
+
+- identidade visual compartilhada
+- `page-shell`
+- header compartilhado sticky
+- `surface-panel`
+- `warning-box`
+- `.cta-button`
+- footer
+- linha estrutural de seção
+- fundo compartilhado via `background-neuroflash.jpg`
+
+Observações:
+
+- Home e FAQ devem reutilizar essa base sempre que a regra for literalmente igual
+- mudanças no topo compartilhado devem ser validadas nas duas páginas
+
+### shared/includes.js
+
+Responsável por:
+
+- centralizar componentes HTML compartilhados
+- injetar o aviso legal em pontos marcados com `data-shared-legal-warning`
+
+Observações:
+
+- a estratégia atual evita `fetch`
+- isso preserva compatibilidade com GitHub Pages e com abertura local em `file:///`
+
+### Home
+
+Arquivos:
+
+- `home/index.html`
+- `home/styles.css`
+
+Responsabilidades:
+
+- apresentar a marca
+- exibir hero, destaques, modos de uso, galeria e CTA principal
+- encaminhar o usuário para a FAQ
+
+Comportamento:
+
+- não há JavaScript dedicado da home
+- a experiência é conduzida por HTML, CSS e includes compartilhados
+
+### FAQ
+
+Arquivos:
 
 - `faq/index.html`
 - `faq/styles.css`
 - `faq/script.js`
 
-Assets visuais encontrados:
+Responsabilidades:
 
-- `background-neuroflash.jpg`
+- responder dúvidas recorrentes
+- detalhar protocolos de uso
+- reforçar alertas e limites de consumo
 
-### `logs/`
+Comportamento:
 
-Arquivos documentais:
+- o acordeão permite foco sequencial de leitura
+- `faq/script.js` controla abertura, fechamento, `aria-expanded` e recálculo de altura
+- o aviso legal é montado pelo include compartilhado
 
-- `logs/CHANGELOG.md`
-- `logs/SITE_ARCHITECTURE.md`
+## Manutenção
 
-## Common Hurdles E Solucoes Documentadas
+### Regras de atualização
 
-1. Links quebrados entre `home` e `faq`
-   Solucao: validar sempre os paths relativos `../faq/index.html` e `../home/index.html` apos qualquer reorganizacao de pasta.
-2. Divergencia entre documentacao e estrutura real
-   Solucao: atualizar `logs/SITE_ARCHITECTURE.md` sempre que mudar ownership de arquivo, local de documentacao ou estrutura principal.
-3. Includes compartilhados quebrados no GitHub Pages
-   Solucao: validar sempre os paths relativos de `data-include-src` e manter o carregamento baseado em `fetch` de arquivos estaticos.
-4. Imagens com enquadramento inconsistente
-   Solucao: revisar `home/styles.css` junto com `home/HOME_IMAGE_GUIDE.txt` antes de trocar assets ou alterar proporcoes.
-5. Regressao entre mobile e desktop
-   Solucao: conferir manualmente os breakpoints principais apos mudancas em hero, header, galeria e FAQ.
-6. Cards da galeria fora de proporcao
-   Solucao: preservar a nomenclatura dos cards A/B/C e revisar as regras de proporcao horizontal no CSS antes de editar alturas.
-7. Inconsistencia de header entre paginas
-   Solucao: tratar `header.home-nav` como padrao compartilhado e validar home e FAQ em conjunto.
-8. Assets orfaos ou duplicados
-   Solucao: remover arquivos que nao estejam ligados as paginas oficiais e registrar a limpeza no changelog.
-9. FAQ com abertura inesperada
-   Solucao: revisar `faq/script.js`, especialmente `is-open`, `aria-expanded` e o recalculo de `max-height`.
-10. Alteracoes sem registro no changelog
-   Solucao: adicionar uma entrada em `logs/CHANGELOG.md` para cada mudanca estrutural, visual ou comportamental relevante.
-11. Mudanca de nomenclatura CSS sem atualizar seletores
-   Solucao: ao renomear classes, buscar referencias em HTML, CSS e documentacao tecnica no mesmo ciclo de mudanca.
-12. Dependencia implicita de fontes externas
-   Solucao: lembrar que a tipografia depende de Google Fonts e validar fallback visual se houver falha de carregamento.
-13. Edicao visual sem validacao cruzada em home e FAQ
-   Solucao: sempre revisar consistencia de branding, espacamento e navegacao nas duas paginas antes de concluir a entrega.
+- registrar mudanças relevantes em `logs/CHANGELOG.md`
+- atualizar este arquivo sempre que mudar ownership, estrutura, fluxo de entrada ou estratégia compartilhada
+- tratar Home e FAQ como um único sistema visual
+- preferir `shared.css` para regras realmente idênticas entre páginas
 
-## Design Patterns Do Projeto
+### Cuidados recorrentes
 
-### Observados no estado atual
+- validar links relativos entre `home/` e `faq/` após reorganizações
+- preservar compatibilidade com GitHub Pages
+- preservar compatibilidade com `file:///` ao mexer em componentes compartilhados
+- consultar `home/HOME_IMAGE_GUIDE.txt` antes de trocar imagens ou enquadramentos da home
+- remover assets órfãos e duplicados quando não participarem das páginas oficiais
 
-1. Multi-page static site
-2. Entry-point redirect pattern via `meta refresh`
-3. Shared visual language across pages
-4. Asset colocation by page folder
-5. Semantic section-based page composition
-6. Mobile-first responsive styling
-7. Progressive enhancement minimo
-8. Single-responsibility JavaScript for FAQ behavior
-9. Shared HTML fragments injected client-side for static hosting
+### Checklist rápido pós-alteração
 
-### Recomendados para evolucao do projeto
+- validar `index.html -> home/ -> faq/`
+- validar retorno da FAQ para a Home
+- revisar visual em mobile e desktop
+- conferir hero, galeria e CTA da Home
+- revisar funcionamento do acordeão da FAQ
+- confirmar que não surgiram referências quebradas de assets
+- atualizar `logs/CHANGELOG.md` se a mudança for estrutural, visual relevante ou comportamental
 
-10. Documentation-first structural changes
-11. Change logging as operational policy
-12. Canonical file ownership by app folder
-13. Content grouping by concern
-14. Naming consistency for CSS and assets
-15. Cross-page UI parity validation
+## Notas de evolução
 
-## Operacao E Manutencao
+Hoje o projeto não possui:
 
-### Regras operacionais atuais
+- backend
+- modelos de domínio formais
+- serviços
+- jobs
+- build
+- CI/CD
+- configuração por ambiente
 
-- toda mudanca relevante deve ser registrada em `logs/CHANGELOG.md`
-- mudancas estruturais devem revisar este documento
-- alteracoes visuais da home devem consultar `home/HOME_IMAGE_GUIDE.txt`
-- a home e a FAQ devem ser tratadas como um sistema visual compartilhado
-- regras duplicadas entre paginas devem preferencialmente ser mantidas em `shared.css`
-- alteracoes no topo compartilhado devem validar estado sticky, contraste e espacamento inicial de home e FAQ
+Se o projeto crescer, a evolução recomendada é leve:
 
-### Limites do projeto atual
-
-- nao existe pipeline automatizado
-- nao existe deploy descrito no codigo
-- nao existe ambiente de staging documentado
-- nao existe camada de configuracao por ambiente
-
-## Checklist Pos-Implementacao
-
-- validar a navegacao `index.html` -> `home/` -> `faq/`
-- validar links de retorno da FAQ para a home
-- validar visual em mobile
-- validar visual em desktop
-- conferir hero, packshot e galeria principal
-- revisar funcionamento do acordeao da FAQ
-- revisar `aria-expanded` e leitura basica de acessibilidade no FAQ
-- confirmar que nao foram introduzidos assets orfaos
-- atualizar `logs/CHANGELOG.md`
-- revisar `logs/SITE_ARCHITECTURE.md` quando houver mudanca estrutural
+- manter `SITE_ARCHITECTURE.md` como visão operacional do estado atual
+- manter o detalhamento histórico no `CHANGELOG.md`
+- introduzir camadas novas apenas quando houver necessidade real de conteúdo dinâmico, automação ou múltiplos fluxos de publicação

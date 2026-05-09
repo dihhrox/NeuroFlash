@@ -51,6 +51,15 @@ body {
   z-index: 0;
 }
 
+.page-shell::before {
+  background:
+    linear-gradient(rgba(4, 11, 18, 0.84), rgba(4, 11, 18, 0.9)),
+    url("./background-neuroflash.jpg") center top / 100% auto no-repeat,
+    radial-gradient(circle at 50% 14%, rgba(201, 255, 24, 0.08), transparent 20%),
+    radial-gradient(circle at 80% 78%, rgba(37, 186, 255, 0.05), transparent 18%);
+  z-index: 0;
+}
+
 .page-shell > * {
   position: relative;
   z-index: 1;
@@ -211,6 +220,7 @@ body {
   font-family: "Barlow Condensed", sans-serif;
   font-size: 1.55rem;
   line-height: 1;
+  text-align: center;
 }
 
 .warning-box p {
@@ -243,6 +253,8 @@ body {
 }
 
 .cta-button {
+  display: flex;
+  margin-top: 18px;
   background: linear-gradient(90deg, #25baff 0%, #34d9ff 100%);
   color: #031018;
   font-size: 1.65rem;
@@ -303,6 +315,14 @@ body {
     min-height: 100vh;
     border-top: 1px solid transparent;
     border-image: linear-gradient(90deg, var(--lime) 0%, var(--cta) 100%) 1;
+  }
+
+  .page-shell::before {
+    background:
+      linear-gradient(rgba(4, 11, 18, 0.88), rgba(4, 11, 18, 0.92)),
+      url("./background-neuroflash.jpg") center top / 100% auto no-repeat,
+      radial-gradient(circle at 50% 14%, rgba(201, 255, 24, 0.08), transparent 20%),
+      radial-gradient(circle at 80% 78%, rgba(37, 186, 255, 0.05), transparent 18%);
   }
 
   .home-nav {
