@@ -23,6 +23,21 @@ Regras:
 
 ## Historico Consolidado
 
+## 2026-05-10 - Ajustes finos de SEO on-page sem dependencia de dominio
+
+- Mudanca: FAQ e Quem Somos deixaram de se apresentar como `article` no Open Graph, as paginas com imagem social ganharam metadados de tipo e dimensoes, a Home trocou o CTA hero sem destino por links internos reais e a pagina Quem Somos passou a incluir um link contextual para a FAQ.
+- Impacto: melhorou a coerencia semantica dos compartilhamentos, fortaleceu a malha interna de navegacao e removeu placeholders de CTA sem antecipar `canonical`, `og:url`, `robots.txt` ou `sitemap.xml`.
+
+## 2026-05-10 - Otimizacao do caminho critico e da hidratação da Home
+
+- Mudanca: as paginas publicas passaram a pedir apenas os pesos de fonte realmente usados, os icones do rodape receberam dimensoes explicitas para reduzir pequenos saltos de layout e o carrossel desktop da Hero passou a registrar `hero-focus2.jpg` e `hero-focus3.jpg` apenas apos a primeira pintura util, com hidratação adiada e fallback compativel.
+- Impacto: reduziu o custo inicial de rede e trabalho imediato de renderizacao sem mexer nos assets nem na arquitetura estatica, preservando a compatibilidade com `file:///` e o comportamento publico do site.
+
+## 2026-05-10 - Consolidacao da camada visual compartilhada
+
+- Mudanca: `shared/styles.css` passou a concentrar primitivas nomeadas de secao, painel, midia e tipografia compartilhada, enquanto Home, FAQ e Quem Somos foram alinhadas para consumir essas classes de forma mais explicita e a hero-card da Home passou a reutilizar a base de painel compartilhado sem alterar o comportamento publico.
+- Impacto: reduziu densidade e repeticao residual entre CSS local e compartilhado, deixou a fronteira de ownership mais clara e manteve a arquitetura estatica do site com menor custo de manutencao.
+
 ## 2026-05-10 - Carrossel automatico na Hero
 
 - Mudanca: a imagem principal da Hero desktop virou um carrossel com `hero-focus.jpg`, `hero-focus2.jpg` e `hero-focus3.jpg`, com troca automatica, setas laterais, indicadores inferiores e controle dedicado em `home/hero-carousel.js`, respeitando `prefers-reduced-motion`.

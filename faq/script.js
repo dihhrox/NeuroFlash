@@ -17,12 +17,17 @@ const faqItems = Array.from(document.querySelectorAll(".faq-item"))
   .filter(Boolean);
 
 let syncFrame = null;
+const mobileFaqQuery = window.matchMedia("(max-width: 768px)");
 
 const setItemOpenState = (faqItem, isOpen) => {
   faqItem.item.classList.toggle("is-open", isOpen);
   faqItem.button.setAttribute("aria-expanded", String(isOpen));
   faqItem.answer.setAttribute("aria-hidden", String(!isOpen));
-  faqItem.answer.style.maxHeight = isOpen ? `${faqItem.answer.scrollHeight}px` : "0px";
+  faqItem.answer.style.maxHeight = isOpen && !mobileFaqQuery.matches ? `${faqItem.answer.scrollHeight}px` : "0px";
+
+  if (isOpen && mobileFaqQuery.matches) {
+    faqItem.answer.style.maxHeight = "none";
+  }
 };
 
 const closeOtherItems = (activeItem) => {
@@ -63,3 +68,4 @@ faqItems.forEach((faqItem) => {
 
 window.addEventListener("load", scheduleFaqSync);
 window.addEventListener("resize", scheduleFaqSync);
+mobileFaqQuery.addEventListener("change", syncFaqHeights);

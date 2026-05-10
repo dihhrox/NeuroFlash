@@ -24,7 +24,7 @@
   background: transparent;
   color: #ffffff;
   text-align: left;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -76,4 +76,10 @@
 
 .faq-item.is-open .faq-answer {
   opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .faq-answer {
+    transition: none;
+  }
 }

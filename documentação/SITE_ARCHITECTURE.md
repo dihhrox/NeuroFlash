@@ -26,7 +26,7 @@ Stack real:
 - HTML5
 - CSS3
 - JavaScript vanilla
-- Google Fonts (`Barlow Condensed` e `Inter`)
+- Google Fonts (`Barlow Condensed` e `Inter`, carregadas com pesos realmente usados e `display=swap`)
 
 O projeto nao usa Node.js, framework frontend, backend, build step, CI/CD, banco de dados ou variaveis de ambiente.
 
@@ -41,11 +41,11 @@ O projeto nao usa Node.js, framework frontend, backend, build step, CI/CD, banco
 
 Ownership por area:
 
-- `shared/styles.css`: tokens, shell translucida, background fixo, header, superficies, CTA base, warning box, footer, titulos e primitivas compartilhadas de secao interna.
+- `shared/styles.css`: tokens, shell translucida, background fixo, header, superficies, CTA base, warning box, footer e primitivas compartilhadas nomeadas como `section-title`, `surface-section`, `surface-panel` e `media-block`.
 - `shared/includes.js`: injeta header, footer e aviso legal em marcadores `data-shared-*`, com helpers para links e blocos institucionais e com Home apontando para `index.html` na raiz.
 - `shared/background-neuroflash.jpg`: fundo visual canonico compartilhado por Home, Quem Somos e FAQ, fixo no viewport para efeito parallax.
 - `shared/icons/`: icones PNG compartilhados usados nos links de suporte e contato do rodape.
-- `index.html` + `home/styles.css` + `home/hero-carousel.js`: hero, carrossel desktop, destaques, modos, galeria e CTA principal da Home.
+- `index.html` + `home/styles.css` + `home/hero-carousel.js`: hero, carrossel desktop, grids especificos da Home, ajustes de layout da Home e CTA principal.
 - `home/index.html`: redirecionamento de compatibilidade para a Home canonica na raiz.
 - `quem-somos/index.html` + `quem-somos/styles.css`: narrativa institucional, imagem dos fundadores e layout editorial.
 - `faq/index.html` + `faq/styles.css` + `faq/script.js`: acordeao, protocolos e suporte complementar.
@@ -73,19 +73,21 @@ O script calcula caminhos relativos para raiz, `home/`, `quem-somos/` e `faq/`, 
 - tokens de cor
 - shell da pagina
 - navegacao e marca
-- superficies reutilizaveis
-- botoes e links de acao
-- headings de secao
-- casca compartilhada de secoes internas (`content-section` e `content-section-title`)
+- superficies reutilizaveis (`surface-panel`)
+- botoes e links de acao (`cta-button` e `ghost-link`)
+- titulos de secao (`section-title`)
+- casca compartilhada de secoes internas (`surface-section`)
+- blocos de midia reutilizaveis com crop opcional (`media-block`)
 - aviso legal
 - footer institucional compartilhado
 
 Regras especificas de layout permanecem em `home/styles.css`, `faq/styles.css` ou `quem-somos/styles.css`.
+Em especial, `home/styles.css` deve ficar restrito ao hero, carrossel, grids e ajustes que so existem na Home.
 
 ### Home
 
 A Home segue majoritariamente estatica, mas agora possui um JavaScript proprio e pequeno para hidratar o carrossel desktop da hero.
-O CSS local da Home concentra utilitarios de midia para hero, cards, modos e galeria, enquanto `home/hero-carousel.js` controla troca automatica, setas laterais, indicadores inferiores e pausa por hover/focus apenas na imagem principal da hero.
+O CSS local da Home concentra hero, carrossel, grids e ajustes de layout exclusivos da Home, enquanto `shared/styles.css` fornece as primitivas visuais base e `home/hero-carousel.js` controla troca automatica, setas laterais, indicadores inferiores e pausa por hover/focus apenas na imagem principal da hero.
 
 Assets da Home:
 
@@ -108,7 +110,7 @@ Assets da Home:
 
 Politica de performance de imagens:
 
-- a hero desktop usa `hero-focus.jpg`, `hero-focus2.jpg` e `hero-focus3.jpg` em carrossel com fade; a primeira imagem permanece prioritaria e os slides adicionais entram via JavaScript com carregamento sob demanda.
+- a hero desktop usa `hero-focus.jpg`, `hero-focus2.jpg` e `hero-focus3.jpg` em carrossel com fade; a primeira imagem permanece prioritaria e os slides adicionais entram via JavaScript somente depois da primeira pintura util, com hidratação adiada e carregamento sob demanda.
 - `hero-focus.jpg` e `product-packshot2.jpg` carregam de forma imediata por participarem do primeiro impacto visual.
 - imagens abaixo da dobra usam lazy loading nativo com `decoding="async"` e dimensoes declaradas no HTML.
 - a imagem principal da hero e seu carrossel devem permanecer desktop-only em tempo de rede, evitando download desnecessario no mobile.
@@ -133,6 +135,7 @@ O acordeao em `faq/script.js`:
 
 - o mobile usa um perfil de performance mais leve, sem `background-attachment: fixed` e sem `backdrop-filter` nos blocos compartilhados mais caros.
 - blocos estaticos abaixo da dobra podem usar `content-visibility: auto` via utilitario compartilhado, sem aplicar essa tecnica ao acordeao da FAQ.
+- a imagem institucional de `quem-somos/` e o rodape compartilhado podem participar desse adiamento de renderizacao por serem blocos estaticos abaixo da dobra.
 
 ### SEO
 
@@ -143,9 +146,11 @@ A estrategia SEO deve continuar conservadora enquanto nao houver URL publica fin
 - A Home usa JSON-LD basico para `Organization`, `Brand`, `WebSite`, `WebPage` e `Product`, sem preco, `Offer`, disponibilidade ou URL absoluta enquanto a venda nao estiver liberada.
 - FAQ usa JSON-LD minimo de `WebPage` sobre o produto, e Quem Somos usa `AboutPage`, ambos sem URLs absolutas.
 - Home, Quem Somos e FAQ devem manter Open Graph e Twitter cards com imagem e texto alternativo coerentes.
+- Sempre que a imagem social for conhecida, manter tambem `og:image:type`, `og:image:width` e `og:image:height`.
 - `canonical`, `sitemap.xml`, `robots.txt` com sitemap, `og:url` e URLs absolutas em schema ficam pendentes ate existir dominio publico.
 - `FAQPage` schema deve ser avaliado com cautela, porque rich results de FAQ sao restritos e nao devem ser tratados como ganho garantido.
 - Imagens editoriais devem manter `alt` descritivo, natural e sem excesso de palavras-chave.
+- CTAs editoriais principais devem apontar para paginas reais do site ou destinos reais de contato, evitando botoes sem destino util.
 
 ## Manutencao
 

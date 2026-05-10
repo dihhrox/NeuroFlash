@@ -1,5 +1,13 @@
 const HERO_DESKTOP_QUERY = window.matchMedia("(min-width: 769px)");
 const HERO_REDUCED_MOTION_QUERY = window.matchMedia("(prefers-reduced-motion: reduce)");
+const scheduleIdleWork =
+  "requestIdleCallback" in window
+    ? (callback) => window.requestIdleCallback(callback, { timeout: 1800 })
+    : (callback) => window.setTimeout(callback, 280);
+const cancelIdleWork =
+  "cancelIdleCallback" in window
+    ? (id) => window.cancelIdleCallback(id)
+    : (id) => window.clearTimeout(id);
 const HERO_EXTRA_SLIDES = [
   {
     src: "./home/hero-focus2.jpg",
@@ -19,7 +27,7 @@ const createHeroSlide = ({ src, alt }) => {
   slide.setAttribute("data-hero-slide", "");
   slide.setAttribute("aria-hidden", "true");
 
-  image.className = "media-cover-image media-image--hero";
+  image.className = "media-block__image media-cover-image media-image--hero";
   image.src = src;
   image.alt = alt;
   image.width = 2200;
@@ -53,6 +61,9 @@ const initializeHeroCarousel = () => {
   let currentIndex = 0;
   let autoplayTimer = null;
   let isTransitioning = false;
+  let hydrationFrame = null;
+  let hydrationTask = null;
+  let controlsBound = false;
 
   const autoplayInterval = Number(carousel.dataset.autoplayInterval) || 5000;
   const fadeDuration = 1000;
@@ -97,6 +108,18 @@ const initializeHeroCarousel = () => {
   const waitForFade = () => new Promise((resolve) => {
     window.setTimeout(resolve, fadeDuration);
   });
+
+  const cancelScheduledHydration = () => {
+    if (hydrationFrame !== null) {
+      window.cancelAnimationFrame(hydrationFrame);
+      hydrationFrame = null;
+    }
+
+    if (hydrationTask !== null) {
+      cancelIdleWork(hydrationTask);
+      hydrationTask = null;
+    }
+  };
 
   const goToSlide = async (nextIndex) => {
     const targetIndex = (nextIndex + slides.length) % slides.length;
@@ -164,7 +187,25 @@ const initializeHeroCarousel = () => {
     });
   };
 
-  const hydrate = () => {
+  const bindControls = () => {
+    if (controlsBound) {
+      return;
+    }
+
+    previousButton.addEventListener("click", () => {
+      goToSlide(currentIndex - 1);
+      startAutoplay();
+    });
+
+    nextButton.addEventListener("click", () => {
+      goToSlide(currentIndex + 1);
+      startAutoplay();
+    });
+
+    controlsBound = true;
+  };
+
+  const hydrateSlides = () => {
     if (carousel.dataset.hydrated === "true") {
       syncMotionPreference();
       updateSlides();
@@ -178,6 +219,7 @@ const initializeHeroCarousel = () => {
 
     slides = Array.from(track.querySelectorAll("[data-hero-slide]"));
     buildIndicators();
+    bindControls();
     syncMotionPreference();
     updateSlides();
 
@@ -185,29 +227,46 @@ const initializeHeroCarousel = () => {
     previousButton.hidden = false;
     nextButton.hidden = false;
     indicators.hidden = false;
-
-    previousButton.addEventListener("click", () => {
-      goToSlide(currentIndex - 1);
-      startAutoplay();
-    });
-
-    nextButton.addEventListener("click", () => {
-      goToSlide(currentIndex + 1);
-      startAutoplay();
-    });
-
     startAutoplay();
+  };
+
+  const scheduleHydration = () => {
+    if (carousel.dataset.hydrated === "true") {
+      syncMotionPreference();
+      updateSlides();
+      startAutoplay();
+      return;
+    }
+
+    if (hydrationFrame !== null || hydrationTask !== null) {
+      return;
+    }
+
+    hydrationFrame = window.requestAnimationFrame(() => {
+      hydrationFrame = null;
+      hydrationTask = scheduleIdleWork(() => {
+        hydrationTask = null;
+
+        if (!HERO_DESKTOP_QUERY.matches) {
+          return;
+        }
+
+        hydrateSlides();
+      });
+    });
   };
 
   const handleViewportChange = () => {
     if (HERO_DESKTOP_QUERY.matches) {
-      hydrate();
+      scheduleHydration();
       return;
     }
 
+    cancelScheduledHydration();
     clearAutoplay();
   };
 
+  syncMotionPreference();
   HERO_DESKTOP_QUERY.addEventListener("change", handleViewportChange);
   HERO_REDUCED_MOTION_QUERY.addEventListener("change", () => {
     syncMotionPreference();

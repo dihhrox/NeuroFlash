@@ -34,7 +34,7 @@
 
 .about-pullquote {
   color: var(--lime-bright);
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.55rem, 6vw, 2.5rem);
   font-weight: 800;
   letter-spacing: 0.03em;
@@ -42,7 +42,27 @@
   text-shadow: 0 0 18px rgba(207, 255, 24, 0.18);
 }
 
+.about-context-link {
+  width: min(100%, 780px);
+  margin: 24px auto 0;
+  padding: 20px 18px;
+  display: grid;
+  gap: 14px;
+  text-align: center;
+}
+
+.about-context-link p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.65;
+}
+
+.about-context-link .ghost-link {
+  width: 100%;
+}
+
 .founders-figure {
+  --deferred-render-size: 980px;
   margin: 24px 0 0;
   padding: 10px;
   border-color: rgba(207, 255, 24, 0.3);
@@ -71,6 +91,11 @@
 
   .about-story p {
     font-size: 1.06rem;
+  }
+
+  .about-context-link {
+    margin-top: 30px;
+    padding: 24px 28px;
   }
 
   .founders-figure {

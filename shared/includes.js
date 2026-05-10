@@ -5,9 +5,9 @@ const SITE_LINKS = [
   { href: "faq/index.html", page: "faq", navLabel: "FAQ", footerLabel: "FAQ" },
 ];
 const FOOTER_CONTACT_LINKS = [
-  { href: "mailto:contato@essentiahealth.com.br", icon: "email.png", label: "contato@essentiahealth.com.br" },
-  { href: "https://www.instagram.com/essentiahealth.br", icon: "instagram.png", label: "@essentiahealth.br" },
-  { href: "https://wa.me/5511999999999", icon: "whatsapp.png", label: "(11) 99999-9999" },
+  { href: "mailto:contato@essentiahealth.com.br", icon: "email.png", label: "contato@essentiahealth.com.br", width: 315, height: 315 },
+  { href: "https://www.instagram.com/essentiahealth.br", icon: "instagram.png", label: "@essentiahealth.br", width: 315, height: 316 },
+  { href: "https://wa.me/5511999999999", icon: "whatsapp.png", label: "(11) 99999-9999", width: 316, height: 316 },
 ];
 const FOOTER_COMPANY_LINES = [
   "CNPJ: 00.000.000/0001-00",
@@ -36,9 +36,9 @@ const buildParagraphs = (lines) => lines.map((line) => `<p>${line}</p>`).join(""
 const buildLinkGroup = (links) => links.map(({ href, label, attributes = "" }) => buildAnchor(href, label, attributes)).join("");
 const buildContactLinks = (prefix) =>
   FOOTER_CONTACT_LINKS.map(
-    ({ href, icon, label }) => `
+    ({ href, icon, label, width, height }) => `
       <a href="${href}">
-        <img class="footer-contact-icon" src="${prefix}shared/icons/${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <img class="footer-contact-icon" src="${prefix}shared/icons/${icon}" alt="" aria-hidden="true" width="${width}" height="${height}" loading="lazy" decoding="async">
         <span>${label}</span>
       </a>
     `.trim(),
