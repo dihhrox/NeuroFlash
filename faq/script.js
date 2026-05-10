@@ -1,56 +1,65 @@
-const faqItems = Array.from(document.querySelectorAll(".faq-item"));
+const faqItems = Array.from(document.querySelectorAll(".faq-item"))
+  .map((item, index) => {
+    const button = item.querySelector(".faq-question");
+    const answer = item.querySelector(".faq-answer");
 
-const getFaqParts = (item) => {
-  const button = item.querySelector(".faq-question");
-  const answer = item.querySelector(".faq-answer");
+    if (!button || !answer) {
+      return null;
+    }
 
-  if (!button || !answer) {
-    return null;
-  }
+    const answerId = answer.id || `faq-answer-${index + 1}`;
 
-  return { button, answer };
-};
+    answer.id = answerId;
+    button.setAttribute("aria-controls", answerId);
 
-const setItemOpenState = (item, isOpen) => {
-  const parts = getFaqParts(item);
+    return { item, button, answer };
+  })
+  .filter(Boolean);
 
-  if (!parts) {
-    return;
-  }
+let syncFrame = null;
 
-  item.classList.toggle("is-open", isOpen);
-  parts.button.setAttribute("aria-expanded", String(isOpen));
-  parts.answer.style.maxHeight = isOpen ? `${parts.answer.scrollHeight}px` : "0px";
+const setItemOpenState = (faqItem, isOpen) => {
+  faqItem.item.classList.toggle("is-open", isOpen);
+  faqItem.button.setAttribute("aria-expanded", String(isOpen));
+  faqItem.answer.setAttribute("aria-hidden", String(!isOpen));
+  faqItem.answer.style.maxHeight = isOpen ? `${faqItem.answer.scrollHeight}px` : "0px";
 };
 
 const closeOtherItems = (activeItem) => {
-  faqItems.forEach((item) => {
-    if (item !== activeItem) {
-      setItemOpenState(item, false);
+  faqItems.forEach((faqItem) => {
+    if (faqItem !== activeItem) {
+      setItemOpenState(faqItem, false);
     }
   });
 };
 
 const syncFaqHeights = () => {
-  faqItems.forEach((item) => {
-    setItemOpenState(item, item.classList.contains("is-open"));
+  faqItems.forEach((faqItem) => {
+    setItemOpenState(faqItem, faqItem.item.classList.contains("is-open"));
   });
 };
 
-faqItems.forEach((item) => {
-  const parts = getFaqParts(item);
-
-  if (!parts) {
+const scheduleFaqSync = () => {
+  if (syncFrame !== null) {
     return;
   }
 
-  parts.button.addEventListener("click", () => {
-    const shouldOpen = !item.classList.contains("is-open");
+  syncFrame = window.requestAnimationFrame(() => {
+    syncFrame = null;
+    syncFaqHeights();
+  });
+};
 
-    closeOtherItems(item);
-    setItemOpenState(item, shouldOpen);
+faqItems.forEach((faqItem) => {
+  setItemOpenState(faqItem, faqItem.item.classList.contains("is-open"));
+
+  faqItem.button.addEventListener("click", () => {
+    const shouldOpen = !faqItem.item.classList.contains("is-open");
+
+    closeOtherItems(faqItem);
+    setItemOpenState(faqItem, shouldOpen);
   });
 });
 
-window.addEventListener("load", syncFaqHeights);
-window.addEventListener("resize", syncFaqHeights);
+window.addEventListener("load", scheduleFaqSync);
+window.addEventListener("resize", scheduleFaqSync);

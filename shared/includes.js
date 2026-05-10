@@ -1,5 +1,122 @@
+const NESTED_PAGE_PATTERN = /\/(home|faq|quem-somos)\/(?:index\.html)?$/;
+const SITE_LINKS = [
+  { href: "index.html", page: "home", navLabel: "HOME", footerLabel: "Home" },
+  { href: "quem-somos/index.html", page: "quem-somos", navLabel: "QUEM SOMOS", footerLabel: "Quem Somos" },
+  { href: "faq/index.html", page: "faq", navLabel: "FAQ", footerLabel: "FAQ" },
+];
+const FOOTER_CONTACT_LINKS = [
+  { href: "mailto:contato@essentiahealth.com.br", icon: "email.png", label: "contato@essentiahealth.com.br" },
+  { href: "https://www.instagram.com/essentiahealth.br", icon: "instagram.png", label: "@essentiahealth.br" },
+  { href: "https://wa.me/5511999999999", icon: "whatsapp.png", label: "(11) 99999-9999" },
+];
+const FOOTER_COMPANY_LINES = [
+  "CNPJ: 00.000.000/0001-00",
+  "Endere&ccedil;o: Av. Paulista, 1000 - Bela Vista, S&atilde;o Paulo - SP",
+  "Atendimento: seg. a sex., 9h &agrave;s 18h",
+];
+const SHARED_INCLUDE_SELECTORS = [
+  ["[data-shared-header]", "header"],
+  ["[data-shared-footer]", "footer"],
+  ["[data-shared-legal-warning]", "legalWarning"],
+];
+
+const getNormalizedPath = () => window.location.pathname.replace(/\\/g, "/");
+
+const getSharedPathPrefix = () => (NESTED_PAGE_PATTERN.test(getNormalizedPath()) ? "../" : "./");
+
+const getCurrentPage = () => {
+  const path = getNormalizedPath();
+  const currentLink = SITE_LINKS.find(({ page }) => path.includes(`/${page}/`));
+
+  return currentLink?.page ?? "home";
+};
+
+const buildAnchor = (href, label, attributes = "") => `<a${attributes} href="${href}">${label}</a>`;
+const buildParagraphs = (lines) => lines.map((line) => `<p>${line}</p>`).join("");
+const buildLinkGroup = (links) => links.map(({ href, label, attributes = "" }) => buildAnchor(href, label, attributes)).join("");
+const buildContactLinks = (prefix) =>
+  FOOTER_CONTACT_LINKS.map(
+    ({ href, icon, label }) => `
+      <a href="${href}">
+        <img class="footer-contact-icon" src="${prefix}shared/icons/${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <span>${label}</span>
+      </a>
+    `.trim(),
+  ).join("");
+
+const buildNavLinks = (prefix, currentPage) =>
+  buildLinkGroup(
+    SITE_LINKS.map(({ href, navLabel, page }) => ({
+      href: `${prefix}${href}`,
+      label: navLabel,
+      attributes: page === currentPage ? ' class="is-active" aria-current="page"' : "",
+    })),
+  );
+
+const buildSiteMapLinks = (prefix) =>
+  buildLinkGroup(SITE_LINKS.map(({ href, footerLabel }) => ({ href: `${prefix}${href}`, label: footerLabel })));
+
+const buildHeader = () => {
+  const prefix = getSharedPathPrefix();
+  const currentPage = getCurrentPage();
+
+  return `
+    <header class="home-nav">
+      <div class="home-nav-inner">
+        <div class="home-brand">
+          <a class="brand-mark" href="${prefix}index.html">NEURO<span>FLASH</span></a>
+          <div class="price-badge home-badge">HARDCORE MODE</div>
+        </div>
+        <nav class="home-menu" aria-label="Navegacao principal">
+          ${buildNavLinks(prefix, currentPage)}
+        </nav>
+      </div>
+    </header>
+  `.trim();
+};
+
+const buildFooter = () => {
+  const prefix = getSharedPathPrefix();
+
+  return `
+    <footer class="footer deferred-render">
+      <div class="footer-shell">
+        <section class="footer-brand" aria-labelledby="footer-brand-title">
+          <h2 id="footer-brand-title">Essentia <span>Health</span></h2>
+          <p>
+            Empresa do grupo Essentia Health, criando solu&ccedil;&otilde;es inteligentes de suplementa&ccedil;&atilde;o, performance e sa&uacute;de.
+          </p>
+        </section>
+
+        <nav class="footer-column footer-column--centered-title" aria-label="Mapa do site">
+          <h3>Mapa do site</h3>
+          ${buildSiteMapLinks(prefix)}
+        </nav>
+
+        <address class="footer-column footer-contact">
+          <h3>Suporte e contato</h3>
+          ${buildContactLinks(prefix)}
+        </address>
+
+        <section class="footer-column footer-column--centered-title">
+          <h3>Institucional</h3>
+          <div class="footer-subgroup">
+            ${buildParagraphs(FOOTER_COMPANY_LINES)}
+          </div>
+        </section>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Essentia Health. NeuroFlash.</p>
+      </div>
+    </footer>
+  `.trim();
+};
+
 const sharedIncludes = {
-  legalWarning: `
+  header: buildHeader,
+  footer: buildFooter,
+  legalWarning: () => `
     <aside class="warning-box">
       <h3>&#9888; HARDCORE MODE ONLY</h3>
       <p>
@@ -10,11 +127,19 @@ const sharedIncludes = {
   `.trim(),
 };
 
-document.querySelectorAll("[data-shared-legal-warning]").forEach((target) => {
-  if (!sharedIncludes.legalWarning) {
-    console.error("Shared include failed: legalWarning component is not registered.");
+const renderSharedInclude = (selector, includeName) => {
+  const include = sharedIncludes[includeName];
+
+  if (!include) {
+    console.error(`Shared include failed: ${includeName} component is not registered.`);
     return;
   }
 
-  target.innerHTML = sharedIncludes.legalWarning;
+  document.querySelectorAll(selector).forEach((target) => {
+    target.innerHTML = include();
+  });
+};
+
+SHARED_INCLUDE_SELECTORS.forEach(([selector, includeName]) => {
+  renderSharedInclude(selector, includeName);
 });

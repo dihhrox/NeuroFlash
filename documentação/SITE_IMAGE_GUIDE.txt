@@ -1,0 +1,179 @@
+GUIA TECNICO DE IMAGENS DO SITE
+
+INDICE
+1. Visao geral
+2. Imagens compartilhadas
+3. Home
+4. Quem Somos
+5. FAQ
+6. Regras gerais de producao
+
+1. VISAO GERAL
+
+Este arquivo orienta a manutencao dos assets visuais usados no site Neuroflash.
+Ele cobre imagens da Home, Quem Somos, FAQ, background compartilhado e icones do rodape.
+
+As dimensoes reais abaixo refletem os arquivos presentes no projeto no momento desta revisao.
+As dimensoes ideais sao recomendacoes para futuras substituicoes, buscando nitidez em desktop, mobile e telas de alta densidade.
+
+Quando houver diferenca entre dimensao real e dimensao declarada no HTML, respeitar a observacao especifica do asset. Em alguns casos, a dimensao declarada funciona como placeholder tecnico para reduzir layout shift, nao como tamanho real obrigatorio do arquivo.
+
+2. IMAGENS COMPARTILHADAS
+
+2.1 Background global
+Arquivo atual: shared/background-neuroflash.jpg
+Dimensao real atual: 843 x 1264 px
+Dimensao declarada no HTML: nao se aplica; asset carregado por CSS
+Proporcao visual esperada: vertical, com area central segura
+Comportamento atual: aplicado no body com background-size: cover; desktop usa comportamento fixo para efeito parallax; mobile usa scroll por performance
+Tamanho ideal para substituicao: 1600 x 2400 px ou maior, mantendo proporcao vertical proxima
+Orientacao:
+- manter elementos importantes afastados das bordas, pois o cover recorta conforme viewport
+- evitar texto dentro da imagem
+- preservar contraste suficiente para overlays escuros e conteudo branco
+
+2.2 Icones de suporte e contato
+Arquivos atuais:
+- shared/icons/email.png
+- shared/icons/instagram.png
+- shared/icons/whatsapp.png
+Dimensoes reais atuais:
+- email.png: 315 x 315 px
+- instagram.png: 315 x 316 px
+- whatsapp.png: 316 x 316 px
+Dimensao declarada no HTML: nao ha width/height; o tamanho visual e controlado por CSS em em
+Proporcao visual esperada: quadrada
+Comportamento atual: object-fit: contain; icones decorativos com alt vazio e aria-hidden
+Tamanho ideal para substituicao: 256 x 256 px ou 512 x 512 px, PNG com fundo transparente quando possivel
+Orientacao:
+- manter todos os icones com peso visual semelhante
+- evitar bordas internas muito finas, pois o rodape usa icones pequenos
+- nao referenciar arquivos de Downloads ou Dropbox diretamente
+
+3. HOME
+
+3.1 Hero principal
+Campo: imagem principal do destaque inicial, exibida apenas em desktop por source media
+Arquivos atuais:
+- home/hero-focus.jpg
+- home/hero-focus2.jpg
+- home/hero-focus3.jpg
+Dimensoes reais atuais:
+- hero-focus.jpg: 2200 x 1400 px
+- hero-focus2.jpg: 2200 x 1400 px
+- hero-focus3.jpg: 2200 x 1400 px
+Dimensao declarada no HTML: 2200 x 1400 px no placeholder da imagem
+Proporcao visual esperada: horizontal ampla, proxima de 16:10
+Comportamento atual: carrossel automatico desktop-only com fade curto, setas laterais, indicadores inferiores, object-fit cover, object-position center center, transform none e filtro leve de saturacao/contraste
+Carregamento: `hero-focus.jpg` abre como primeiro slide com prioridade alta; `hero-focus2.jpg` e `hero-focus3.jpg` entram por JavaScript com decoding async e carregamento sob demanda
+Tamanho ideal para substituicao: 2200 x 1400 px ou maior, mantendo proporcao horizontal
+Orientacao:
+- tratar as tres imagens como um conjunto coerente de carrossel, com linguagem visual compativel entre si
+- manter o assunto principal em uma area que funcione com crop horizontal
+- evitar texto importante na imagem
+- nao trocar para object-fit: contain se o objetivo for preencher o frame sem bordas vazias
+- se a imagem parecer fechada, ajustar primeiro o arquivo fonte ou o object-position especifico do hero
+
+3.2 Packshot do produto
+Campo: imagem do produto no card lateral do hero
+Arquivo atual: home/product-packshot2.jpg
+Dimensao real atual: 1400 x 2333 px
+Dimensao declarada no HTML: 1400 x 2333 px
+Proporcao visual esperada: vertical, proxima de 3:5
+Comportamento atual: object-fit: contain; object-position: center bottom no desktop
+Carregamento: eager, decoding async
+Tamanho ideal para substituicao: 1400 x 2333 px ou maior
+Orientacao:
+- manter a embalagem inteira e centralizada
+- preservar respiro superior minimo para nao cortar a alca/topo
+- evitar fundo excessivamente claro que reduza contraste com o card escuro
+
+3.3 Cards de destaques
+Campo: quatro cards da secao "Como o NeuroFlash Atua"
+Comportamento atual: object-fit: cover; crop dentro de frame fixo; imagens lazy com decoding async
+Proporcao visual esperada: 4:3 ou horizontal segura
+Tamanho ideal para substituicao: 1200 x 900 px ou maior
+
+Assets atuais:
+- home/mental-ignition.jpg | dimensao real: 1600 x 1200 px | dimensao HTML: 1200 x 900 px
+- home/focus-lock.jpg | dimensao real: 1024 x 1024 px | dimensao HTML: 1200 x 900 px
+- home/pressure-mode.jpg | dimensao real: 1264 x 843 px | dimensao HTML: 1200 x 900 px
+- home/clarity-rush.jpg | dimensao real: 1365 x 768 px | dimensao HTML: 1200 x 900 px
+
+Orientacao:
+- manter o assunto principal proximo ao centro
+- focus-lock favorece topo no mobile; evitar assunto importante muito baixo
+- clarity-rush recebe escala visual adicional em desktop antigo/desktop atual conforme CSS; manter margem segura nas bordas
+- preferir imagens horizontais ou quadradas com area de seguranca para crop 4:3
+
+3.4 Cards de modos de uso
+Campo: cards de Treino, Estudo e Game/Competicao
+Comportamento atual: object-fit: cover; crop central; imagens lazy com decoding async
+Proporcao visual esperada: horizontal ampla, proxima de 16:10
+Tamanho ideal para substituicao: 1600 x 1000 px ou maior
+
+Assets atuais:
+- home/treino.jpg | dimensao real: 1364 x 768 px | dimensao HTML: 1600 x 1000 px
+- home/estudo.jpg | dimensao real: 1365 x 768 px | dimensao HTML: 1600 x 1000 px
+- home/game-competicao.jpg | dimensao real: 1264 x 842 px | dimensao HTML: 1600 x 1000 px
+
+Orientacao:
+- manter assunto principal no centro ou levemente acima do centro
+- evitar detalhes essenciais nas laterais
+- revisar sempre em mobile, pois o card fica mais estreito
+
+3.5 Galeria visual
+Campo: tres imagens superiores da galeria
+Comportamento atual: object-fit: cover; tiles com aspect-ratio 4 / 3; imagens lazy com decoding async
+Proporcao visual esperada: 4:3
+Tamanho ideal para substituicao: 1200 x 900 px ou maior
+
+Assets atuais:
+- home/motocross.jpg | dimensao real: 1200 x 900 px | dimensao HTML: 1200 x 900 px
+- home/homem-terno.jpg | dimensao real: 1200 x 900 px | dimensao HTML: 1200 x 900 px
+- home/mulher-ufc.jpg | dimensao real: 1200 x 900 px | dimensao HTML: 1200 x 900 px
+
+Orientacao:
+- manter padrao visual equivalente entre os tres blocos
+- evitar imagens muito verticais, pois o frame e 4:3
+- preservar contraste e composicao forte, ja que a galeria fecha a narrativa da Home
+
+4. QUEM SOMOS
+
+4.1 Imagem dos fundadores
+Campo: imagem institucional apos o texto narrativo
+Arquivo atual: quem-somos/fundadores.jpg
+Dimensao real atual: 944 x 1124 px
+Dimensao declarada no HTML: 944 x 1124 px
+Proporcao visual esperada: vertical institucional
+Comportamento atual: width 100%, height auto, object-fit: cover; carregamento lazy com decoding async
+Tamanho ideal para substituicao: 1200 x 1429 px ou maior, mantendo proporcao proxima
+Orientacao:
+- manter rostos e pessoas em area central segura
+- evitar crop agressivo no topo e nas laterais
+- preservar tom humano/institucional, sem parecer imagem generica de banco
+
+5. FAQ
+
+5.1 Imagem social da FAQ
+Campo: Open Graph e Twitter image
+Arquivo atual: shared/background-neuroflash.jpg
+Dimensao real atual: 843 x 1264 px
+Dimensao declarada no HTML: nao ha width/height por ser meta image
+Proporcao visual esperada: imagem de identidade visual compartilhada
+Comportamento atual: usada apenas como referencia social/metadado, nao como img no conteudo da FAQ
+Orientacao:
+- enquanto nao houver dominio publico, manter caminhos relativos
+- quando existir URL publica, revisar se a imagem social deve continuar sendo o background ou ganhar arte dedicada em proporcao 1200 x 630 px
+
+6. REGRAS GERAIS DE PRODUCAO
+
+- Usar nomes de arquivo em ASCII, sem acentos, cedilha ou espacos.
+- Preferir JPG de alta qualidade para fotos e PNG para icones/elementos com transparencia.
+- Manter assunto principal longe das bordas quando o CSS usa object-fit: cover.
+- Usar object-fit: contain apenas quando a imagem inteira precisa aparecer, como o packshot.
+- Sempre revisar crop em mobile e desktop antes de publicar.
+- Declarar width e height no HTML para imagens de conteudo quando possivel.
+- Usar loading lazy em imagens abaixo da dobra e decoding async em todas as imagens de conteudo.
+- Nao aplicar lazy loading ao background global, pois ele faz parte da identidade visual inicial do site.
+- Se uma imagem nova parecer muito fechada, preferir ajustar o arquivo fonte ou object-position antes de alterar a arquitetura do layout.
