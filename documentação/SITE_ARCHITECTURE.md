@@ -118,7 +118,7 @@ Politica de performance de imagens:
 
 ### Quem Somos
 
-A pagina `quem-somos/` nao possui JavaScript proprio. Ela reutiliza header, footer, shell, fundo fixo e superficies compartilhadas, com CSS local apenas para a narrativa institucional e a imagem `fundadores.jpg`.
+A pagina `quem-somos/` nao possui JavaScript proprio. Ela reutiliza header, footer, shell, fundo fixo e superficies compartilhadas, com CSS local para a narrativa institucional, a imagem `fundadores.jpg`, a proporcao do titulo de pagina no desktop e o posicionamento do CTA contextual da FAQ abaixo da foto dos fundadores.
 
 ### FAQ
 

@@ -314,6 +314,9 @@ body {
   font-size: 1.1rem;
   font-weight: 700;
   line-height: 1.5;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
 }
 
 .ghost-link,

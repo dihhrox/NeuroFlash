@@ -85,6 +85,11 @@
 }
 
 @media (min-width: 900px) {
+  .about-section .section-title--page .section-title__accent {
+    width: 10px;
+    height: clamp(46px, 4.8vw, 58px);
+  }
+
   .about-story {
     padding: 44px 72px;
   }
@@ -94,7 +99,8 @@
   }
 
   .about-context-link {
-    margin-top: 30px;
+    width: 100%;
+    margin-top: 44px;
     padding: 24px 28px;
   }
 

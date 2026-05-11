@@ -23,6 +23,11 @@ Regras:
 
 ## Historico Consolidado
 
+## 2026-05-10 - Ajustes visuais da pagina Quem Somos
+
+- Mudanca: a pagina Quem Somos recebeu ajustes visuais no marcador colorido do titulo em desktop, no alinhamento e espacamento do bloco contextual da FAQ e na ordem editorial, com o CTA de FAQ posicionado abaixo da imagem dos fundadores.
+- Impacto: melhorou a hierarquia visual da pagina e deixou o fluxo de leitura narrativa, foto e CTA mais consistente entre desktop e mobile.
+
 ## 2026-05-10 - Ajustes finos de SEO on-page sem dependencia de dominio
 
 - Mudanca: FAQ e Quem Somos deixaram de se apresentar como `article` no Open Graph, as paginas com imagem social ganharam metadados de tipo e dimensoes, a Home trocou o CTA hero sem destino por links internos reais e a pagina Quem Somos passou a incluir um link contextual para a FAQ.
