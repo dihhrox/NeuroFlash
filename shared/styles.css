@@ -379,11 +379,20 @@ body {
 .footer-brand {
   min-width: 0;
   align-self: start;
-  padding: 22px 18px;
+  padding: 12px;
   border: 1px solid rgba(120, 244, 255, 0.16);
   background:
     linear-gradient(135deg, rgba(37, 186, 255, 0.1), rgba(207, 255, 24, 0.08)),
     rgba(7, 17, 26, 0.58);
+}
+
+.footer-brand-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+  object-fit: contain;
+  object-position: center;
 }
 
 .footer-brand h2,
@@ -416,7 +425,8 @@ body {
   overflow-wrap: anywhere;
 }
 
-.footer-brand h2 + p {
+.footer-brand h2 + p,
+.footer-brand-logo + p {
   margin-top: 6px;
 }
 

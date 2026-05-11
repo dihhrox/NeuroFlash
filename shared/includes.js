@@ -81,11 +81,8 @@ const buildFooter = () => {
   return `
     <footer class="footer deferred-render">
       <div class="footer-shell">
-        <section class="footer-brand" aria-labelledby="footer-brand-title">
-          <h2 id="footer-brand-title">Essentia <span>Health</span></h2>
-          <p>
-            Empresa do grupo Essentia Health, criando solu&ccedil;&otilde;es inteligentes de suplementa&ccedil;&atilde;o, performance e sa&uacute;de.
-          </p>
+        <section class="footer-brand" aria-label="Essentia Health">
+          <img class="footer-brand-logo" src="${prefix}shared/essentia-health-logo.png" alt="Essentia Health - Solu&ccedil;&otilde;es inteligentes em sa&uacute;de e bem-estar" width="1504" height="768" loading="lazy" decoding="async">
         </section>
 
         <nav class="footer-column footer-column--centered-title" aria-label="Mapa do site">

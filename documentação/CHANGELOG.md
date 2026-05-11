@@ -23,6 +23,26 @@ Regras:
 
 ## Historico Consolidado
 
+## 2026-05-11 - Logo institucional no rodape compartilhado
+
+- Mudanca: o texto `Essentia Health` do rodape compartilhado foi substituido por imagem institucional em `shared/essentia-health-logo.png`, sem texto descritivo abaixo e com estilos dedicados para controlar proporcao e ocupacao do card.
+- Impacto: o rodape de Home, Quem Somos e FAQ passa a exibir a marca institucional com maior fidelidade visual, mantendo o include compartilhado como ponto unico de manutencao.
+
+## 2026-05-11 - Atualizacao de orientacoes de uso e advertencias da FAQ
+
+- Mudanca: a FAQ recebeu textos revisados para modo de uso, consumo das 3 capsulas em dose unica, contraindicações e advertencias do NeuroFlash.
+- Impacto: deixou as orientacoes de uso e seguranca mais completas e explicitas para o usuario, mantendo o conteudo dentro da estrutura estatica atual do site.
+
+## 2026-05-11 - Conversao de documentos texto para Markdown
+
+- Mudanca: `documentacao/COISAS_A_FAZER.md` e `documentacao/SITE_IMAGE_GUIDE.md` passaram a substituir os antigos arquivos de texto puro, com referencias internas atualizadas para Markdown.
+- Impacto: manteve o conteudo tecnico e a fila de pendencias em formato editavel e versionavel, reduzindo duplicidade entre documentos `.txt` e `.md`.
+
+## 2026-05-11 - Guia de uso do Canva para criativos
+
+- Mudanca: criado `documentacao/CANVA_CRIATIVOS_GUIDE.md` com diretrizes para o Codex usar Canva na producao de criativos, imagens de apoio e materiais comerciais alinhados a identidade visual, assets, copy e restricoes do NeuroFlash.
+- Impacto: documenta o fluxo recomendado de geracao, revisao e salvamento de pecas no Canva, reduzindo risco de ingles indesejado, acentuacao quebrada, dados inventados ou promessas inadequadas em criativos futuros.
+
 ## 2026-05-10 - Ajustes visuais da pagina Quem Somos
 
 - Mudanca: a pagina Quem Somos recebeu ajustes visuais no marcador colorido do titulo em desktop, no alinhamento e espacamento do bloco contextual da FAQ e na ordem editorial, com o CTA de FAQ posicionado abaixo da imagem dos fundadores.
@@ -50,7 +70,7 @@ Regras:
 
 ## 2026-05-10 - Guia geral de imagens do site
 
-- Mudanca: o guia tecnico de imagens da Home foi renomeado para `documentação/SITE_IMAGE_GUIDE.txt` e expandido para cobrir Home, Quem Somos, FAQ, background compartilhado e icones do rodape, com dimensoes reais, dimensoes declaradas e orientacoes de substituicao.
+- Mudanca: o guia tecnico de imagens da Home foi renomeado para `documentação/SITE_IMAGE_GUIDE.md` e expandido para cobrir Home, Quem Somos, FAQ, background compartilhado e icones do rodape, com dimensoes reais, dimensoes declaradas e orientacoes de substituicao.
 - Impacto: a documentacao de assets ficou alinhada ao site multi-page atual e evita manter informacoes de mockups limitadas apenas a Home.
 
 ## 2026-05-10 - Refinos visuais da Home e rodape
@@ -130,7 +150,7 @@ Regras:
 
 ## 2026-05-09 - Centralizacao da documentacao
 
-- Mudanca: a pasta `logs/` foi renomeada para `documentação/`, o guia tecnico de imagens da Home foi movido para a pasta documental e foi criado `COISAS_A_FAZER.txt` para registrar tarefas futuras em texto simples.
+- Mudanca: a pasta `logs/` foi renomeada para `documentação/`, o guia tecnico de imagens da Home foi movido para a pasta documental e foi criado `COISAS_A_FAZER.md` para registrar tarefas futuras em Markdown simples.
 - Impacto: centralizou a documentacao permanente do projeto, deixou a Home focada em pagina e assets e criou uma fila leve de pendencias legivel por humanos e agentes de IA.
 
 ## 2026-05-09 - Refatoracao compartilhada sem build

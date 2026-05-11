@@ -1,12 +1,16 @@
-COISAS A FAZER - NeuroFlash
+# Coisas A Fazer - NeuroFlash
 
 Use este arquivo para registrar ideias, pendencias e melhorias futuras.
 Mantenha cada item curto, objetivo e acionavel.
 
-FORMATO SUGERIDO:
-- [ ] Categoria: descricao da tarefa | contexto: detalhe opcional | prioridade: baixa/media/alta
+## Formato Sugerido
 
-TAREFAS:
+```md
+- [ ] Categoria: descricao da tarefa | contexto: detalhe opcional | prioridade: baixa/media/alta
+```
+
+## Tarefas
+
 - [ ] SEO: definir URL publica final do projeto | contexto: necessario antes de canonical, sitemap, og:url e URLs absolutas em schema | prioridade: alta
 - [ ] SEO: criar sitemap.xml e robots.txt depois que o dominio estiver definido | contexto: incluir sitemap absoluto apenas com URL publica real | prioridade: alta
 - [ ] SEO: adicionar canonical e og:url nas paginas oficiais depois que o dominio estiver definido | contexto: evitar URLs inventadas em ambiente file:/// | prioridade: alta

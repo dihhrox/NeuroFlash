@@ -19,7 +19,7 @@ Regras centrais:
 - fundo canonico compartilhado: `shared/background-neuroflash.jpg`, aplicado no `body` com comportamento fixo
 - estrategia SEO atual: metadados por pagina, Open Graph/Twitter completos, headings semanticos, alt text descritivo e JSON-LD conservador sem URLs finais
 - trilha oficial de mudancas: `documentação/CHANGELOG.md`
-- fila simples de tarefas futuras: `documentação/COISAS_A_FAZER.txt`
+- fila simples de tarefas futuras: `documentação/COISAS_A_FAZER.md`
 
 Stack real:
 
@@ -51,8 +51,8 @@ Ownership por area:
 - `faq/index.html` + `faq/styles.css` + `faq/script.js`: acordeao, protocolos e suporte complementar.
 - `documentação/CHANGELOG.md`: historico tecnico.
 - `documentação/SITE_ARCHITECTURE.md`: fotografia arquitetural atual e guia de manutencao.
-- `documentação/SITE_IMAGE_GUIDE.txt`: guia tecnico de imagens do site.
-- `documentação/COISAS_A_FAZER.txt`: lista simples de tarefas futuras para humanos e agentes de IA.
+- `documentação/SITE_IMAGE_GUIDE.md`: guia tecnico de imagens do site.
+- `documentação/COISAS_A_FAZER.md`: lista simples de tarefas futuras para humanos e agentes de IA.
 
 ## Componentes E Comportamento
 
@@ -106,7 +106,7 @@ Assets da Home:
 - `product-packshot2.jpg`
 - `treino.jpg`
 
-`documentação/SITE_IMAGE_GUIDE.txt` orienta enquadramento, dimensoes reais, dimensoes recomendadas, proporcoes e convencao de nomes para assets da Home, Quem Somos, FAQ, background compartilhado e icones do rodape. Novos assets devem usar nomes ASCII, sem acentos, cedilha ou espacos.
+`documentação/SITE_IMAGE_GUIDE.md` orienta enquadramento, dimensoes reais, dimensoes recomendadas, proporcoes e convencao de nomes para assets da Home, Quem Somos, FAQ, background compartilhado e icones do rodape. Novos assets devem usar nomes ASCII, sem acentos, cedilha ou espacos.
 
 Politica de performance de imagens:
 
@@ -157,7 +157,7 @@ A estrategia SEO deve continuar conservadora enquanto nao houver URL publica fin
 Regras de atualizacao:
 
 - registrar mudancas relevantes em `documentação/CHANGELOG.md`
-- registrar pendencias futuras em `documentação/COISAS_A_FAZER.txt`
+- registrar pendencias futuras em `documentação/COISAS_A_FAZER.md`
 - atualizar este arquivo quando mudar estrutura, ownership, fluxo de entrada, assets canonicos ou estrategia compartilhada
 - tratar Home, Quem Somos e FAQ como um unico sistema visual
 - preferir `shared/styles.css` para regras realmente identicas entre paginas
